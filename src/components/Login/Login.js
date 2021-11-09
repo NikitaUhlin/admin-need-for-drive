@@ -13,26 +13,23 @@ const Login = () => {
                 <div className={styles.title}>Need for drive</div>
             </div>
             <Card style={{
-                width: 376,
-                borderRadius: 9
+                width: 376
             }}>
                 <div className={styles.subtitle}>Вход</div>
                 <Form
                     name="normal_login"
-                    className="login-form"
-                    initialValues={{ remember: true }}
                 // onFinish={onFinish}
                 >
                     <Form.Item
-                        name="username"
-                        rules={[{ required: true, message: 'Please input your Username!' }]}
+                        name="email"
+                        rules={[{ required: true, message: 'Пожалуйста введите почту!' }]}
                     >
                         <div className={styles.label}>Почта</div>
                         <Input type="email" placeholder="Почта" />
                     </Form.Item>
                     <Form.Item
                         name="password"
-                        rules={[{ required: true, message: 'Please input your Password!' }]}
+                        rules={[{ required: true, message: 'Пожалуйста введите пароль!' }]}
                     >
                         <div className={styles.label}>Пароль</div>
                         <Input
@@ -42,7 +39,7 @@ const Login = () => {
                     </Form.Item>
                     <div className={styles.buttonContainer}>
                         <Form.Item>
-                            <a className={styles.link} href="">
+                            <a className={styles.link} href="#">
                                 Запросить доступ
                             </a>
                         </Form.Item>
