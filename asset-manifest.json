@@ -1,23 +1,22 @@
 {
   "files": {
-    "main.css": "/admin-need-for-drive/static/css/main.8c8b27cf.chunk.css",
-    "main.js": "/admin-need-for-drive/static/js/main.6204e29a.chunk.js",
-    "main.js.map": "/admin-need-for-drive/static/js/main.6204e29a.chunk.js.map",
-    "runtime-main.js": "/admin-need-for-drive/static/js/runtime-main.d8395ac5.js",
-    "runtime-main.js.map": "/admin-need-for-drive/static/js/runtime-main.d8395ac5.js.map",
-    "static/js/2.687f5eff.chunk.js": "/admin-need-for-drive/static/js/2.687f5eff.chunk.js",
-    "static/js/2.687f5eff.chunk.js.map": "/admin-need-for-drive/static/js/2.687f5eff.chunk.js.map",
-    "static/js/3.b099cbe5.chunk.js": "/admin-need-for-drive/static/js/3.b099cbe5.chunk.js",
-    "static/js/3.b099cbe5.chunk.js.map": "/admin-need-for-drive/static/js/3.b099cbe5.chunk.js.map",
+    "main.css": "/admin-need-for-drive/static/css/main.933738b2.chunk.css",
+    "main.js": "/admin-need-for-drive/static/js/main.e01509d8.chunk.js",
+    "main.js.map": "/admin-need-for-drive/static/js/main.e01509d8.chunk.js.map",
+    "runtime-main.js": "/admin-need-for-drive/static/js/runtime-main.034758db.js",
+    "runtime-main.js.map": "/admin-need-for-drive/static/js/runtime-main.034758db.js.map",
+    "static/js/2.b54d16ea.chunk.js": "/admin-need-for-drive/static/js/2.b54d16ea.chunk.js",
+    "static/js/2.b54d16ea.chunk.js.map": "/admin-need-for-drive/static/js/2.b54d16ea.chunk.js.map",
     "index.html": "/admin-need-for-drive/index.html",
-    "static/css/main.8c8b27cf.chunk.css.map": "/admin-need-for-drive/static/css/main.8c8b27cf.chunk.css.map",
-    "static/js/2.687f5eff.chunk.js.LICENSE.txt": "/admin-need-for-drive/static/js/2.687f5eff.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/admin-need-for-drive/static/media/logo.6ce24c58.svg"
+    "static/css/main.933738b2.chunk.css.map": "/admin-need-for-drive/static/css/main.933738b2.chunk.css.map",
+    "static/js/2.b54d16ea.chunk.js.LICENSE.txt": "/admin-need-for-drive/static/js/2.b54d16ea.chunk.js.LICENSE.txt",
+    "static/media/LogoIcon.42a15795.svg": "/admin-need-for-drive/static/media/LogoIcon.42a15795.svg",
+    "static/media/index.less": "/admin-need-for-drive/static/media/Roboto-Regular.a8d6ac03.ttf"
   },
   "entrypoints": [
-    "static/js/runtime-main.d8395ac5.js",
-    "static/js/2.687f5eff.chunk.js",
-    "static/css/main.8c8b27cf.chunk.css",
-    "static/js/main.6204e29a.chunk.js"
+    "static/js/runtime-main.034758db.js",
+    "static/js/2.b54d16ea.chunk.js",
+    "static/css/main.933738b2.chunk.css",
+    "static/js/main.e01509d8.chunk.js"
   ]
 }
