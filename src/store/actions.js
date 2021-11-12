@@ -9,7 +9,8 @@ const getAuthToken = (body) => {
                 dispatch(getAuthTokenSuccess(res.data));
             })
             .catch(err => {
-                dispatch(getAuthTokenFailure(err.message));
+                if (err.response.status === 401)
+                    dispatch(getAuthTokenFailure(err.response.data));
             });
     };
 

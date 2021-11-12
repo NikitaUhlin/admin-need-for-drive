@@ -1,27 +1,33 @@
+import { setCookie } from "../utils/cookie";
+
 export const initialState = {
-    loading: true,
+    loading: false,
     error: null,
-    accessToken: '',
+    auth: false,
 }
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case "AUTHORIZATION_SUCCESS":
+            setCookie('token', action.payload.access_token)
+            setCookie('refreshToken', action.payload.refresh_token)
             return {
                 ...state,
                 loading: false,
                 error: null,
-                accessToken: action.payload.access_token
+                auth: true
             };
         case "AUTHORIZATION_STARTED":
             return {
                 ...state,
-                loading: true
+                loading: true,
+                auth: false
             };
         case "AUTHORIZATION_FAILURE":
             return {
                 ...state,
                 loading: false,
-                error: action.payload
+                error: action.payload,
+                auth: false
             };
         default:
             return state;

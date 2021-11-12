@@ -1,17 +1,26 @@
-import React from "react";
-import { Button, Card, Form, Input } from "antd";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { Alert, Button, Card, Form, Input, message } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+
 import LogoIcon from "../../assets/icons/LogoIcon.svg"
 
-import styles from "./login.module.less"
+import * as selectors from "../../store/selectors"
 import { getAuthToken } from "../../store/actions";
+import styles from "./login.module.less"
 
 const Login = () => {
+    const loading = useSelector(selectors.loading)
+    const auth = useSelector(selectors.auth)
+    const error = useSelector(selectors.error)
+
     const dispatch = useDispatch()
 
-    const onFinish = (data) => {
-        dispatch(getAuthToken(data))
-    }
+    useEffect(() => {
+        if (auth)
+            message.success('Вы авторизованы!')
+    }, [auth])
+
+    const onFinish = (data) => dispatch(getAuthToken(data))
 
     return (
         <div className={styles.container}>
@@ -46,6 +55,7 @@ const Login = () => {
                             placeholder="Пароль"
                         />
                     </Form.Item>
+                    {error && <Alert message="Неверный логин или пароль!" type="error" />}
                     <div className={styles.buttonContainer}>
                         <Form.Item>
                             <a className={styles.link} href="#">
@@ -54,7 +64,11 @@ const Login = () => {
                         </Form.Item>
 
                         <Form.Item>
-                            <Button type="primary" htmlType="submit" className={styles.button}>
+                            <Button
+                                loading={loading}
+                                type="primary"
+                                htmlType="submit"
+                                className={styles.button}>
                                 Войти
                             </Button>
                         </Form.Item>
