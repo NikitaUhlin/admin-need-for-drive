@@ -21,10 +21,15 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route
-          path="/orders"
-          element={<PrivateRoute><OrderPage /></PrivateRoute>}
-        />
+        {["/", "/orders"].map((path, index) =>
+          <Route
+            exact
+            key={index}
+            path={path}
+            element={<PrivateRoute><OrderPage /></PrivateRoute>}
+          />
+        )}
+
         <Route
           path="/order/:id"
           element={<PrivateRoute><Layout /></PrivateRoute>}
