@@ -1,22 +1,28 @@
 {
   "files": {
-    "main.css": "/admin-need-for-drive/static/css/main.e5dca3ef.chunk.css",
-    "main.js": "/admin-need-for-drive/static/js/main.f4908fb0.chunk.js",
-    "main.js.map": "/admin-need-for-drive/static/js/main.f4908fb0.chunk.js.map",
+    "main.css": "/admin-need-for-drive/static/css/main.62d6d185.chunk.css",
+    "main.js": "/admin-need-for-drive/static/js/main.5227aabf.chunk.js",
+    "main.js.map": "/admin-need-for-drive/static/js/main.5227aabf.chunk.js.map",
     "runtime-main.js": "/admin-need-for-drive/static/js/runtime-main.034758db.js",
     "runtime-main.js.map": "/admin-need-for-drive/static/js/runtime-main.034758db.js.map",
-    "static/js/2.e534e556.chunk.js": "/admin-need-for-drive/static/js/2.e534e556.chunk.js",
-    "static/js/2.e534e556.chunk.js.map": "/admin-need-for-drive/static/js/2.e534e556.chunk.js.map",
+    "static/js/2.92ca5f35.chunk.js": "/admin-need-for-drive/static/js/2.92ca5f35.chunk.js",
+    "static/js/2.92ca5f35.chunk.js.map": "/admin-need-for-drive/static/js/2.92ca5f35.chunk.js.map",
     "index.html": "/admin-need-for-drive/index.html",
-    "static/css/main.e5dca3ef.chunk.css.map": "/admin-need-for-drive/static/css/main.e5dca3ef.chunk.css.map",
-    "static/js/2.e534e556.chunk.js.LICENSE.txt": "/admin-need-for-drive/static/js/2.e534e556.chunk.js.LICENSE.txt",
+    "static/css/main.62d6d185.chunk.css.map": "/admin-need-for-drive/static/css/main.62d6d185.chunk.css.map",
+    "static/js/2.92ca5f35.chunk.js.LICENSE.txt": "/admin-need-for-drive/static/js/2.92ca5f35.chunk.js.LICENSE.txt",
+    "static/media/Check.d4b0555a.svg": "/admin-need-for-drive/static/media/Check.d4b0555a.svg",
+    "static/media/CheckGreen.c0b2bf86.svg": "/admin-need-for-drive/static/media/CheckGreen.c0b2bf86.svg",
+    "static/media/DropdownIcon.e709e3e8.svg": "/admin-need-for-drive/static/media/DropdownIcon.e709e3e8.svg",
+    "static/media/EditIcon.357a7de3.svg": "/admin-need-for-drive/static/media/EditIcon.357a7de3.svg",
     "static/media/LogoIcon.42a15795.svg": "/admin-need-for-drive/static/media/LogoIcon.42a15795.svg",
+    "static/media/RejectIcon.ccadf150.svg": "/admin-need-for-drive/static/media/RejectIcon.ccadf150.svg",
+    "static/media/Ring.4a73f89d.svg": "/admin-need-for-drive/static/media/Ring.4a73f89d.svg",
     "static/media/index.less": "/admin-need-for-drive/static/media/Roboto-Regular.a8d6ac03.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.034758db.js",
-    "static/js/2.e534e556.chunk.js",
-    "static/css/main.e5dca3ef.chunk.css",
-    "static/js/main.f4908fb0.chunk.js"
+    "static/js/2.92ca5f35.chunk.js",
+    "static/css/main.62d6d185.chunk.css",
+    "static/js/main.5227aabf.chunk.js"
   ]
 }
