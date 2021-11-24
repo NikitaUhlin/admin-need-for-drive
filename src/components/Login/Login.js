@@ -1,23 +1,28 @@
 import React, { useEffect } from "react";
 import { Alert, Button, Card, Form, Input, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 import LogoIcon from "../../assets/icons/LogoIcon.svg"
 
 import * as selectors from "../../store/selectors"
 import { getAuthToken } from "../../store/actions";
 import styles from "./login.module.less"
 
+
 const Login = () => {
     const loading = useSelector(selectors.loading)
     const auth = useSelector(selectors.auth)
     const error = useSelector(selectors.error)
 
+    const navigate = useNavigate()
+
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (auth)
-            message.success('Вы авторизованы!')
+        if (auth) {
+            message.success('Добро пожаловать, Admin!')
+            navigate('/orders')
+        }
     }, [auth])
 
     const onFinish = (data) => dispatch(getAuthToken(data))
@@ -31,50 +36,57 @@ const Login = () => {
             <Card style={{
                 width: 376
             }}>
-                <div className={styles.subtitle}>Вход</div>
-                <Form
-                    name="normal_login"
-                    layout="vertical"
-                    requiredMark={false}
-                    onFinish={onFinish}
-                >
-                    <Form.Item
-                        name="username"
-                        label="Почта"
-                        rules={[{ required: true, message: 'Пожалуйста введите почту!' }]}
+                <div className={styles.content}>
+                    <div className={styles.subtitle}>Вход</div>
+                    <Form
+                        name="normal_login"
+                        layout="vertical"
+                        requiredMark={false}
+                        onFinish={onFinish}
                     >
-                        <Input type="text" placeholder="Почта" />
-                    </Form.Item>
-                    <Form.Item
-                        name="password"
-                        label="Пароль"
-                        rules={[{ required: true, message: 'Пожалуйста введите пароль!' }]}
-                    >
-                        <Input
-                            type="password"
-                            placeholder="Пароль"
-                        />
-                    </Form.Item>
-                    {error && <Alert message="Неверный логин или пароль!" type="error" />}
-                    <div className={styles.buttonContainer}>
-                        <Form.Item>
-                            <a className={styles.link} href="#">
-                                Запросить доступ
-                            </a>
+                        <Form.Item
+                            name="username"
+                            label="Почта"
+                            rules={[{ required: true, message: 'Пожалуйста введите почту!' }]}
+                        >
+                            <Input
+                                type="text"
+                                placeholder="Почта"
+                                size="small"
+                            />
                         </Form.Item>
-
-                        <Form.Item>
-                            <Button
-                                loading={loading}
-                                type="primary"
-                                htmlType="submit"
-                                className={styles.button}>
-                                Войти
-                            </Button>
+                        <Form.Item
+                            name="password"
+                            label="Пароль"
+                            rules={[{ required: true, message: 'Пожалуйста введите пароль!' }]}
+                        >
+                            <Input
+                                type="password"
+                                placeholder="Пароль"
+                                size="small"
+                            />
                         </Form.Item>
+                        {error && <Alert message="Неверный логин или пароль!" type="error" />}
+                        <div className={styles.buttonContainer}>
+                            <Form.Item>
+                                <a className={styles.link} href="#">
+                                    Запросить доступ
+                                </a>
+                            </Form.Item>
 
-                    </div>
-                </Form>
+                            <Form.Item>
+                                <Button
+                                    loading={loading}
+                                    type="primary"
+                                    htmlType="submit"
+                                    className={styles.button}
+                                >
+                                    Войти
+                                </Button>
+                            </Form.Item>
+                        </div>
+                    </Form>
+                </div>
             </Card>
         </div>
     )
