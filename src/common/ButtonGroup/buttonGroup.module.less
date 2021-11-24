@@ -1,0 +1,45 @@
+.container {
+    display: flex;
+
+    :first-child {
+        border-radius: 4px 0 0 4px;
+        border-right: none;
+    }
+
+    :last-child {
+        border-radius: 0 4px 4px 0;
+        border-left: none;
+    }
+}
+
+.button {
+    border: 0.5px solid #BECAD6;
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: center;
+    letter-spacing: -0.345714px;
+    color: #5A6169;
+    cursor: pointer;
+    transition: 0.6s;
+
+    &:hover {
+        color: #007BFF;
+    }
+}
+
+@media (max-width: 1439px) {
+    .container {
+        padding-top: 20px;
+    }
+
+}
+
+@media (max-width: 1023px) {
+    .container {
+        padding-left: 16px;
+    }
+}
