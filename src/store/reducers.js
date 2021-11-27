@@ -14,10 +14,17 @@ export const initialState = {
     cars: [],
     cities: [],
     statuses: [],
+    category: [],
+    rate: [],
+    points: [],
     filterOrders: {},
     loadingOrder: false,
-    changeOrderSuccess: false
+    changeOrderSuccess: false,
+    changeOrderFailure: false,
+    order: {},
+    loadingOrderItem: true,
 }
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case "AUTHORIZATION_SUCCESS":
@@ -64,6 +71,29 @@ const reducer = (state = initialState, action) => {
                 error: action.payload,
                 auth: false
             };
+        case "GET_RATE_SUCCESS":
+            return {
+                ...state,
+                loadingData: false,
+                error: null,
+                rate: action.payload,
+            };
+        case "GET_CATEGORY_SUCCESS":
+            return {
+                ...state,
+                loadingData: false,
+                error: null,
+                category: action.payload,
+            };
+
+        case "GET_POINTS_SUCCESS":
+            return {
+                ...state,
+                loadingData: false,
+                error: null,
+                points: action.payload,
+            };
+
         case "GET_CARS_SUCCESS":
             return {
                 ...state,
@@ -101,20 +131,47 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loadingOrder: false,
                 error: null,
-                changeOrderSuccess: true
+                changeOrderSuccess: true,
+                changeOrderFailure: false
             };
         case "CHANGE_ORDER_STARTED":
             return {
                 ...state,
                 loadingOrder: true,
-                changeOrderSuccess: false
+                changeOrderSuccess: false,
+                changeOrderFailure: false
+            };
+        case "MESSAGE_TRIGGER":
+            return {
+                ...state,
+                changeOrderSuccess: false,
             };
         case "CHANGE_ORDER_FAILURE":
             return {
                 ...state,
                 loadingOrder: false,
                 error: action.payload,
-                changeOrderSuccess: false
+                changeOrderSuccess: false,
+                changeOrderFailure: true
+            };
+        case "GET_ORDER_SUCCESS":
+            return {
+                ...state,
+                loadingOrderItem: false,
+                error: null,
+                order: action.payload.data,
+            };
+        case "GET_ORDER_STARTED":
+            return {
+                ...state,
+                loadingOrderItem: true
+            };
+        case "GET_ORDER_FAILURE":
+            return {
+                ...state,
+                loadingOrderItem: false,
+                error: action.payload,
+                auth: false
             };
 
         default:

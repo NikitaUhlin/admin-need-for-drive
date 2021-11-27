@@ -1,16 +1,17 @@
-import React from "react";
-import LogoIcon from "../../assets/icons/LogoIcon.svg"
-import { UnorderedListOutlined, DiffOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from "react";
+import { EnvironmentOutlined, DiffOutlined, CarOutlined, DollarOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
+import { useNavigate, useLocation } from "react-router-dom";
+import classNames from "classnames";
+
+import LogoIcon from "../../assets/icons/LogoIcon.svg"
 
 import "./menuItem.less"
 import styles from "./sidebar.module.less"
-import { useNavigate } from "react-router-dom";
-import classNames from "classnames";
 
 let cx = classNames.bind(styles)
 
-const menuItems = ['orders', 'cars']
+const menuItems = ['orders', 'cars', 'points', 'rate']
 
 const Sidebar = ({ menuOpen }) => {
     const classNameMenu = cx({
@@ -18,10 +19,18 @@ const Sidebar = ({ menuOpen }) => {
         [styles.menuOpen]: menuOpen
     })
 
+    const [page, setPage] = useState()
+
     const navigate = useNavigate()
 
-    const onChange = (item) =>
+    let location = useLocation();
+
+    useEffect(() => {
+        setPage(menuItems.indexOf(location.pathname.replace('/', '')) + 1)
+    }, [])
+    const onChange = (item) => {
         navigate(`/${menuItems[item.key - 1]}`)
+    }
 
     return (
         <div className={classNameMenu}>
@@ -29,7 +38,7 @@ const Sidebar = ({ menuOpen }) => {
                 onClick={onChange}
                 className={styles.content}
                 style={{ width: 256 }}
-                defaultSelectedKeys={['1']}
+                selectedKeys={[`${page}`]}
                 mode="inline"
             >
                 <Menu.ItemGroup key="0">
@@ -43,8 +52,16 @@ const Sidebar = ({ menuOpen }) => {
                     Заказы
                 </Menu.Item>
 
-                <Menu.Item key="2" icon={<UnorderedListOutlined />}>
-                    Список авто
+                <Menu.Item key="2" icon={<CarOutlined />}>
+                    Автомобили
+                </Menu.Item>
+
+                <Menu.Item key="3" icon={<EnvironmentOutlined />}>
+                    Пункты выдачи
+                </Menu.Item>
+
+                <Menu.Item key="4" icon={<DollarOutlined />}>
+                    Тарифы
                 </Menu.Item>
             </Menu>
         </div>
