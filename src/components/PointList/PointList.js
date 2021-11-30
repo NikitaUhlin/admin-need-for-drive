@@ -54,7 +54,7 @@ const PointList = () => {
             key: 'address',
         },
         {
-            title: '',
+            title: 'Действия',
             key: 'action',
             render: (text, record) => (
                 <ButtonGroup

@@ -37,12 +37,14 @@ const CarsList = () => {
             title: 'Номер',
             dataIndex: 'number',
             responsive: ['lg'],
+            width: '14%',
             key: 'number',
         },
         {
             title: 'Категория',
             dataIndex: ['categoryId', 'name'],
             responsive: ['md'],
+            width: '14%',
             key: 'category',
             filters: filtersCarCategory,
             onFilter: (value, record) => record.categoryId && record.categoryId.name.indexOf(value) > -1,
@@ -52,6 +54,7 @@ const CarsList = () => {
             key: 'colors',
             dataIndex: 'colors',
             responsive: ['lg'],
+            width: '40%',
             render: colors => (
                 <>
                     {colors.map(item => {
@@ -97,8 +100,9 @@ const CarsList = () => {
             ),
         },
         {
-            title: '',
+            title: 'Действия',
             key: 'action',
+            width: '14%',
             render: (text, record) => (
                 <ButtonGroup
                     options={[

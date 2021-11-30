@@ -72,8 +72,10 @@ const OrderList = () => {
         dispatch(getOrders(1, {}))
     }
 
-    const onOrderAccept = (id) => dispatch(changeOrder(id, { orderStatusId: "5e26a1f0099b810b946c5d8b" }))
+    const onOrderAccept = (id, item) => {
 
+        dispatch(changeOrder(id, { orderStatusId: "5e26a1f0099b810b946c5d8b" }))
+    }
     const onOrderCancel = (id) => dispatch(changeOrder(id, { orderStatusId: "5e26a1f5099b810b946c5d8c" }))
 
     const onOrderEdit = (id) => navigate(`/order/${id}`)
@@ -156,8 +158,8 @@ const OrderList = () => {
                                 <div className={styles.buttonGroup}>
                                     <ButtonGroup
                                         options={[
-                                            { id: 1, label: 'Готово', icon: CheckGreen, onClick: () => onOrderAccept(item.id) },
-                                            { id: 2, label: 'Отмена', icon: RejectIcon, onClick: () => onOrderCancel(item.id) },
+                                            { id: 1, label: 'Готово', icon: CheckGreen, onClick: () => onOrderAccept(item.id, item.orderStatusId.name), disabled: item.orderStatusId.name === "Подтвержденные" },
+                                            { id: 2, label: 'Отмена', icon: RejectIcon, onClick: () => onOrderCancel(item.id), disabled: item.orderStatusId.name === "Отмененые" },
                                             { id: 3, label: 'Изменить', icon: EditIcon, onClick: () => onOrderEdit(item.id) },
                                         ]}
                                     />

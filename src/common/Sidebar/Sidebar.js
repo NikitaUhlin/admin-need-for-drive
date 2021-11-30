@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { EnvironmentOutlined, DiffOutlined, CarOutlined, DollarOutlined } from '@ant-design/icons';
+import {
+    EnvironmentOutlined,
+    DiffOutlined,
+    CarOutlined,
+    DollarOutlined,
+    HomeOutlined
+} from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useNavigate, useLocation } from "react-router-dom";
 import classNames from "classnames";
@@ -11,7 +17,7 @@ import styles from "./sidebar.module.less"
 
 let cx = classNames.bind(styles)
 
-const menuItems = ['orders', 'cars', 'points', 'rate']
+const menuItems = ['orders', 'cars', 'points', 'rates', 'cities']
 
 const Sidebar = ({ menuOpen }) => {
     const classNameMenu = cx({
@@ -62,6 +68,10 @@ const Sidebar = ({ menuOpen }) => {
 
                 <Menu.Item key="4" icon={<DollarOutlined />}>
                     Тарифы
+                </Menu.Item>
+
+                <Menu.Item key="5" icon={<HomeOutlined />}>
+                    Города
                 </Menu.Item>
             </Menu>
         </div>

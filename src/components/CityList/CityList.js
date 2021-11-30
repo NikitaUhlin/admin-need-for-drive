@@ -1,4 +1,5 @@
 import React from "react";
+
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -9,41 +10,25 @@ import EntitiesList from "../EntitiesList/EntitiesList";
 import RejectIcon from "../../assets/icons/RejectIcon.svg"
 import EditIcon from "../../assets/icons/EditIcon.svg"
 
-const RateList = () => {
+const CityList = () => {
     const navigate = useNavigate()
 
-    const rate = useSelector(selectors.rate)
+    const cities = useSelector(selectors.cities)
     const loadingData = useSelector(selectors.loadingData)
 
     const columns = [
         {
             title: 'Название',
-            dataIndex: ['rateTypeId', 'name'],
+            dataIndex: 'name',
             key: 'name',
             sorter: (a, b) => {
-                const nameA = a.rateTypeId.name.toLowerCase(), nameB = b.rateTypeId.name.toLowerCase()
+                const nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase()
                 if (nameA < nameB)
                     return -1
                 if (nameA > nameB)
                     return 1
                 return 0
             }
-        },
-        {
-            title: 'Описание',
-            dataIndex: ['rateTypeId', 'unit'],
-            responsive: ['md'],
-            key: 'unit',
-
-
-        },
-        {
-            title: 'Цена',
-            dataIndex: 'price',
-            responsive: ['md'],
-            key: 'price',
-
-
         },
         {
             title: 'Действия',
@@ -55,7 +40,7 @@ const RateList = () => {
                             id: 1,
                             label: 'Изменить',
                             icon: EditIcon,
-                            onClick: () => onRateEdit(record.id)
+                            onClick: () => onCityEdit(record.id)
                         },
                         {
                             id: 2,
@@ -69,16 +54,16 @@ const RateList = () => {
         },
     ];
 
-    const onRateEdit = (id) => navigate(`/rate/${id}`)
+    const onCityEdit = (id) => navigate(`/city/${id}`)
 
     return (
         <EntitiesList
-            title="Тарифы"
+            title="Пункты выдачи"
             columns={columns}
-            data={rate}
+            data={cities}
             loadingData={loadingData}
         />
     )
 }
 
-export default RateList
+export default CityList

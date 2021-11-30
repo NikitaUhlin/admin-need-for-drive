@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Card, Checkbox, Spin, Form, Select, Button, DatePicker, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router-dom";
 import { LoadingOutlined } from '@ant-design/icons'
 import moment from 'moment';
 
@@ -15,6 +15,8 @@ const OrderPage = () => {
     const { id } = useParams()
 
     const dispatch = useDispatch()
+
+    const navigate = useNavigate()
 
     const [form] = Form.useForm();
 
@@ -66,6 +68,11 @@ const OrderPage = () => {
                 dateTo: values.date[1].valueOf()
             }
         ))
+
+    const onDelete = () => {
+        dispatch(changeOrder(id, { orderStatusId: "5e26a1f5099b810b946c5d8c" }))
+        navigate('/orders')
+    }
 
     return (
         <Layout>
@@ -198,8 +205,16 @@ const OrderPage = () => {
                                         </Form.Item>
 
                                         <Form.Item >
-                                            <Button type="primary" htmlType="submit">
+                                            <Button type="primary" htmlType="submit" style={{ marginRight: 15 }}>
                                                 Сохранить
+                                            </Button>
+
+                                            <Button
+                                                type="primary"
+                                                danger
+                                                onClick={onDelete}
+                                            >
+                                                Удалить
                                             </Button>
                                         </Form.Item>
                                     </Form>

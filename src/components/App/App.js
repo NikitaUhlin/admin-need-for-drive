@@ -15,6 +15,7 @@ import CarsList from "../CarsList/CarsList";
 import Layout from "../Layout/Layout"
 import PointList from "../PointList/PointList";
 import RateList from "../RateList/RateList";
+import CityList from "../CityList/CityList";
 
 const App = () => {
   const dispatch = useDispatch()
@@ -56,8 +57,20 @@ const App = () => {
           element={<PrivateRoute><Layout /></PrivateRoute>}
         />
         <Route
-          path="/rate"
+          path="/rates"
           element={<PrivateRoute><RateList /></PrivateRoute>}
+        />
+        <Route
+          path="/rate/:id"
+          element={<PrivateRoute><Layout /></PrivateRoute>}
+        />
+        <Route
+          path="/cities"
+          element={<PrivateRoute><CityList /></PrivateRoute>}
+        />
+        <Route
+          path="/city/:id"
+          element={<PrivateRoute><Layout /></PrivateRoute>}
         />
         <Route path="/auth" element={<Login />} />
       </Routes>
