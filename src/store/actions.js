@@ -120,7 +120,7 @@ const changeOrder = (id, body) => {
 
         API.changeOrder(id, body)
             .then(res => {
-                dispatch(changeOrderSuccess(res.data));
+                dispatch(changeOrderSuccess(res.data.data));
             })
             .catch(err => {
                 dispatch(changeOrderFailure(err.response));

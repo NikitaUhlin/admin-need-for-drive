@@ -17,7 +17,7 @@ const ButtonGroup = ({ options }) => (
                 <div
                     key={item.id}
                     className={classNameButton}
-                    onClick={item.onClick}
+                    onClick={() => !item.disabled && item.onClick()}
                 >
                     <img src={item.icon} alt='' />
                     {item.label}

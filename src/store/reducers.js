@@ -127,10 +127,14 @@ const reducer = (state = initialState, action) => {
                 error: action.payload,
             };
         case "CHANGE_ORDER_SUCCESS":
+            const orderIndex = state.orders.findIndex((item) => action.payload.id === item.id)
+            const newOrders = [...state.orders]
+            newOrders.splice(orderIndex, 1, action.payload)
             return {
                 ...state,
                 loadingOrder: false,
                 error: null,
+                orders: newOrders,
                 changeOrderSuccess: true,
                 changeOrderFailure: false
             };
@@ -176,7 +180,6 @@ const reducer = (state = initialState, action) => {
 
         default:
             return state;
-
     }
 }
 
