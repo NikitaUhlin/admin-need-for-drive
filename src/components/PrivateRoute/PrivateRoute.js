@@ -6,7 +6,6 @@ import * as selectors from "../../store/selectors"
 
 const PrivateRoute = ({ children }) => {
     const auth = useSelector(selectors.auth)
-
     return auth ?
         children :
         <Navigate

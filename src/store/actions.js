@@ -175,6 +175,494 @@ const getOrderFailure = error => ({
     payload: error
 });
 
+const getCity = (id) => {
+    return dispatch => {
+        dispatch(getCityStarted());
+
+        API.getCity(id)
+            .then(res => {
+                dispatch(getCitySuccess(res.data));
+            })
+            .catch(err => {
+                dispatch(getCityFailure(err.response));
+            });
+    };
+
+}
+
+const getCitySuccess = newItem => ({
+    type: "GET_CITY_SUCCESS",
+    payload: newItem
+});
+
+const getCityStarted = () => ({
+    type: "GET_CITY_STARTED"
+});
+
+const getCityFailure = error => ({
+    type: "GET_CITY_FAILURE",
+    payload: error
+});
+
+const getPoint = (id) => {
+    return dispatch => {
+        dispatch(getPointStarted());
+
+        API.getPoint(id)
+            .then(res => {
+                dispatch(getPointSuccess(res.data));
+            })
+            .catch(err => {
+                dispatch(getPointFailure(err.response));
+            });
+    };
+
+}
+
+const getPointSuccess = newItem => ({
+    type: "GET_POINT_SUCCESS",
+    payload: newItem
+});
+
+const getPointStarted = () => ({
+    type: "GET_POINT_STARTED"
+});
+
+const getPointFailure = error => ({
+    type: "GET_POINT_FAILURE",
+    payload: error
+});
+
+const getCar = (id) => {
+    return dispatch => {
+        dispatch(getCarStarted());
+
+        API.getCar(id)
+            .then(res => {
+                dispatch(getCarSuccess(res.data));
+            })
+            .catch(err => {
+                dispatch(getCarFailure(err.response));
+            });
+    };
+
+}
+
+const getCarSuccess = newItem => ({
+    type: "GET_CAR_SUCCESS",
+    payload: newItem
+});
+
+const getCarStarted = () => ({
+    type: "GET_CAR_STARTED"
+});
+
+const getCarFailure = error => ({
+    type: "GET_CAR_FAILURE",
+    payload: error
+});
+
+const getRateType = () => {
+    return dispatch => {
+        dispatch(getRateTypeStarted());
+
+        API.getRateType()
+            .then(res => {
+                dispatch(getRateTypeSuccess(res.data))
+            })
+            .catch(err => {
+                dispatch(getRateTypeFailure(err.response));
+            });
+    };
+
+}
+
+const getRateTypeSuccess = newItem => ({
+    type: "GET_RATE_TYPE_SUCCESS",
+    payload: newItem
+});
+
+const getRateTypeStarted = () => ({
+    type: "GET_RATE_TYPE_STARTED"
+});
+
+const getRateTypeFailure = error => ({
+    type: "GET_RATE_TYPE_FAILURE",
+    payload: error
+});
+
+const getRateItem = (id) => {
+    return dispatch => {
+        dispatch(getRateItemStarted());
+
+        API.getRateItem(id)
+            .then(res => {
+                dispatch(getRateItemSuccess(res.data))
+
+            })
+            .catch(err => {
+                dispatch(getRateItemFailure(err.response));
+            });
+    };
+
+}
+
+const getRateItemSuccess = newItem => ({
+    type: "GET_RATE_ITEM_SUCCESS",
+    payload: newItem
+});
+
+const getRateItemStarted = () => ({
+    type: "GET_RATE_ITEM_STARTED"
+});
+
+const getRateItemFailure = error => ({
+    type: "GET_RATE_ITEM_FAILURE",
+    payload: error
+});
+
+const clearRateItem = () => ({
+    type: "CLEAR_RATE_ITEM"
+});
+const changeCity = (id, body) => {
+    return dispatch => {
+        dispatch(changeCityStarted());
+
+        API.changeCity(id, body)
+            .then(res => {
+                dispatch(changeCitySuccess(res.data));
+            })
+            .catch(err => {
+                dispatch(changeCityFailure(err.response));
+            });
+    };
+}
+
+const changeCitySuccess = newItem => ({
+    type: "CHANGE_CITY_SUCCESS",
+    payload: newItem
+});
+
+const changeCityStarted = () => ({
+    type: "CHANGE_CITY_STARTED"
+});
+
+const changeCityFailure = error => ({
+    type: "CHANGE_CITY_FAILURE",
+    payload: error
+});
+
+const changePoint = (id, body) => {
+    return dispatch => {
+        dispatch(changePointStarted());
+
+        API.changePoint(id, body)
+            .then(res => {
+                dispatch(changePointSuccess(res.data));
+            })
+            .catch(err => {
+                dispatch(changePointFailure(err.response));
+            });
+    };
+}
+
+const changePointSuccess = newItem => ({
+    type: "CHANGE_POINT_SUCCESS",
+    payload: newItem
+});
+
+const changePointStarted = () => ({
+    type: "CHANGE_POINT_STARTED"
+});
+
+const changePointFailure = error => ({
+    type: "CHANGE_POINT_FAILURE",
+    payload: error
+});
+
+const changeRate = (id, body) => {
+    return dispatch => {
+        dispatch(changeRateStarted());
+
+        API.changeRate(id, body)
+            .then(res => {
+                dispatch(changeRateSuccess(res.data));
+            })
+            .catch(err => {
+                dispatch(changeRateFailure(err.response));
+            });
+    };
+}
+
+const changeRateSuccess = newItem => ({
+    type: "CHANGE_RATE_SUCCESS",
+    payload: newItem
+});
+
+const changeRateStarted = () => ({
+    type: "CHANGE_RATE_STARTED"
+});
+
+const changeRateFailure = error => ({
+    type: "CHANGE_RATE_FAILURE",
+    payload: error
+});
+
+const changeCar = (id, body) => {
+    return dispatch => {
+        dispatch(changeCarStarted());
+
+        API.changeCar(id, body)
+            .then(res => {
+                dispatch(changeCarSuccess(res.data));
+            })
+            .catch(err => {
+                dispatch(changeCarFailure(err.response));
+            });
+    };
+}
+
+const changeCarSuccess = newItem => ({
+    type: "CHANGE_CAR_SUCCESS",
+    payload: newItem
+});
+
+const changeCarStarted = () => ({
+    type: "CHANGE_CAR_STARTED"
+});
+
+const changeCarFailure = error => ({
+    type: "CHANGE_CAR_FAILURE",
+    payload: error
+});
+
+const postCity = (body) => {
+    return dispatch => {
+        dispatch(postCityStarted());
+
+        API.postCity(body)
+            .then(res => {
+                dispatch(postCitySuccess(res.data));
+            })
+            .catch(err => {
+                dispatch(postCityFailure(err.response));
+            });
+    };
+}
+
+const postCitySuccess = newItem => ({
+    type: "POST_CITY_SUCCESS",
+    payload: newItem
+});
+
+const postCityStarted = () => ({
+    type: "POST_CITY_STARTED"
+});
+
+const postCityFailure = error => ({
+    type: "POST_CITY_FAILURE",
+    payload: error
+});
+
+const postPoint = (body) => {
+    return dispatch => {
+        dispatch(postPointStarted());
+
+        API.postPoint(body)
+            .then(res => {
+                dispatch(postPointSuccess(res.data));
+            })
+            .catch(err => {
+                dispatch(postPointFailure(err.response));
+            });
+    };
+}
+
+const postPointSuccess = newItem => ({
+    type: "POST_POINT_SUCCESS",
+    payload: newItem
+});
+
+const postPointStarted = () => ({
+    type: "POST_POINT_STARTED"
+});
+
+const postPointFailure = error => ({
+    type: "POST_POINT_FAILURE",
+    payload: error
+});
+
+const postRate = (body) => {
+    return dispatch => {
+        dispatch(postRateStarted());
+
+        API.postRate(body)
+            .then(res => {
+                dispatch(postRateSuccess(res.data));
+            })
+            .catch(err => {
+                dispatch(postRateFailure(err.response));
+            });
+    };
+}
+
+const postRateSuccess = newItem => ({
+    type: "POST_RATE_SUCCESS",
+    payload: newItem
+});
+
+const postRateStarted = () => ({
+    type: "POST_RATE_STARTED"
+});
+
+const postRateFailure = error => ({
+    type: "POST_RATE_FAILURE",
+    payload: error
+});
+
+const postCar = (body) => {
+    return dispatch => {
+        dispatch(postCarStarted());
+
+        API.postCar(body)
+            .then(res => {
+                dispatch(postCarSuccess(res.data));
+            })
+            .catch(err => {
+                dispatch(postCarFailure(err.response));
+            });
+    };
+}
+
+const postCarSuccess = newItem => ({
+    type: "POST_CAR_SUCCESS",
+    payload: newItem
+});
+
+const postCarStarted = () => ({
+    type: "POST_CAR_STARTED"
+});
+
+const postCarFailure = error => ({
+    type: "POST_CAR_FAILURE",
+    payload: error
+});
+
+const deleteCity = (id) => {
+    return dispatch => {
+        dispatch(deleteCityStarted());
+
+        API.deleteCity(id)
+            .then(res => {
+                dispatch(deleteCitySuccess(id));
+            })
+            .catch(err => {
+                dispatch(deleteCityFailure(err.response));
+            });
+    };
+
+}
+
+const deleteCitySuccess = newItem => ({
+    type: "DELETE_CITY_SUCCESS",
+    payload: newItem
+});
+
+const deleteCityStarted = () => ({
+    type: "DELETE_CITY_STARTED"
+});
+
+const deleteCityFailure = error => ({
+    type: "DELETE_CITY_FAILURE",
+    payload: error
+});
+
+const deleteRate = (id) => {
+    return dispatch => {
+        dispatch(deleteRateStarted());
+
+        API.deleteRate(id)
+            .then(res => {
+                dispatch(deleteRateSuccess(id));
+            })
+            .catch(err => {
+                dispatch(deleteRateFailure(err.response));
+            });
+    };
+
+}
+
+const deleteRateSuccess = newItem => ({
+    type: "DELETE_RATE_SUCCESS",
+    payload: newItem
+});
+
+const deleteRateStarted = () => ({
+    type: "DELETE_RATE_STARTED"
+});
+
+const deleteRateFailure = error => ({
+    type: "DELETE_RATE_FAILURE",
+    payload: error
+});
+
+const deleteCar = (id) => {
+    return dispatch => {
+        dispatch(deleteCarStarted());
+
+        API.deleteCar(id)
+            .then(res => {
+                dispatch(deleteCarSuccess(id));
+            })
+            .catch(err => {
+                dispatch(deleteCarFailure(err.response));
+            });
+    };
+
+}
+
+const deleteCarSuccess = newItem => ({
+    type: "DELETE_CAR_SUCCESS",
+    payload: newItem
+});
+
+const deleteCarStarted = () => ({
+    type: "DELETE_CAR_STARTED"
+});
+
+const deleteCarFailure = error => ({
+    type: "DELETE_CAR_FAILURE",
+    payload: error
+});
+
+const deletePoint = (id) => {
+    return dispatch => {
+        dispatch(deletePointStarted());
+
+        API.deletePoint(id)
+            .then(res => {
+                dispatch(deletePointSuccess(id));
+            })
+            .catch(err => {
+                dispatch(deletePointFailure(err.response));
+            });
+    };
+
+}
+
+const deletePointSuccess = newItem => ({
+    type: "DELETE_POINT_SUCCESS",
+    payload: newItem
+});
+
+const deletePointStarted = () => ({
+    type: "DELETE_POINT_STARTED"
+});
+
+const deletePointFailure = error => ({
+    type: "DELETE_POINT_FAILURE",
+    payload: error
+});
 
 export {
     getAuthToken,
@@ -182,5 +670,23 @@ export {
     getData,
     changeOrder,
     getOrder,
-    messageTrigger
+    messageTrigger,
+    getCity,
+    changeCity,
+    getPoint,
+    changePoint,
+    getRateItem,
+    changeRate,
+    clearRateItem,
+    changeCar,
+    getCar,
+    getRateType,
+    postCity,
+    postPoint,
+    postRate,
+    postCar,
+    deleteCity,
+    deleteRate,
+    deleteCar,
+    deletePoint
 }

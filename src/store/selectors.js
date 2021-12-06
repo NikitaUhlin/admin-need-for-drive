@@ -10,6 +10,16 @@ export const orders = state => state.orders
 
 export const order = state => state.order
 
+export const city = state => state.city
+
+export const point = state => state.point
+
+export const rateItem = state => state.rateItem
+
+export const rateType = state => state.rateType
+
+export const car = state => state.car
+
 export const countOrder = state => state.countOrder
 
 export const cars = state => state.cars
@@ -25,6 +35,16 @@ export const changeOrderSuccess = state => state.changeOrderSuccess
 export const changeOrderFailure = state => state.changeOrderFailure
 
 export const loadingOrderItem = state => state.loadingOrderItem
+
+export const loadingCityItem = state => state.loadingCityItem
+
+export const loadingRateType = state => state.loadingRateType
+
+export const loadingPointItem = state => state.loadingPointItem
+
+export const loadingRateItem = state => state.loadingRateItem
+
+export const loadingCarItem = state => state.loadingCarItem
 
 export const points = state => state.points
 

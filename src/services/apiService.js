@@ -33,8 +33,22 @@ class ApiService {
         })
     }
 
-    put(url, body) {
-        return this.api.put(url, body)
+    delete(url, headers) {
+        return this.api.delete(url, {
+            headers: {
+                Authorization: `Bearer ${this.token}`,
+                ...headers,
+            }
+        })
+    }
+
+    put(url, body, headers) {
+        return this.api.put(url, body, {
+            headers: {
+                Authorization: `Bearer ${this.token}`,
+                ...headers,
+            }
+        })
     }
 
     auth(body) {
@@ -43,6 +57,22 @@ class ApiService {
         return this.post('auth/login', body, {
             Authorization: `Basic ${token}`
         })
+    }
+
+    postCity(body) {
+        return this.post('db/city', body)
+    }
+
+    postPoint(body) {
+        return this.post('db/point', body)
+    }
+
+    postCar(body) {
+        return this.post('db/car', body)
+    }
+
+    postRate(body) {
+        return this.post('db/rate', body)
     }
 
     getOrders(page, filters) {
@@ -64,12 +94,40 @@ class ApiService {
         return this.get('db/car')
     }
 
+    getCar(id) {
+        return this.get(`db/car/${id}`)
+    }
+
     getCities() {
         return this.get('db/city')
     }
 
+    getCity(id) {
+        return this.get(`db/city/${id}`)
+    }
+
+    deleteCity(id) {
+        return this.delete(`db/city/${id}`)
+    }
+
+    deleteRate(id) {
+        return this.delete(`db/rate/${id}`)
+    }
+
+    deletePoint(id) {
+        return this.delete(`db/point/${id}`)
+    }
+
+    deleteCar(id) {
+        return this.delete(`db/car/${id}`)
+    }
+
     getPoints() {
         return this.get('db/point')
+    }
+
+    getPoint(id) {
+        return this.get(`db/point/${id}`)
     }
 
     getStatuses() {
@@ -84,8 +142,33 @@ class ApiService {
         return this.get('db/rate')
     }
 
+
+    getRateType() {
+        return this.get('db/rateType')
+    }
+
+    getRateItem(id) {
+        return this.get(`db/rate/${id}`)
+    }
+
     changeOrder(id, body) {
         return this.put(`db/order/${id}`, body)
+    }
+
+    changeCity(id, body) {
+        return this.put(`db/city/${id}`, body)
+    }
+
+    changePoint(id, body) {
+        return this.put(`db/point/${id}`, body)
+    }
+
+    changeRate(id, body) {
+        return this.put(`db/rate/${id}`, body)
+    }
+
+    changeCar(id, body) {
+        return this.put(`db/car/${id}`, body)
     }
 
 }

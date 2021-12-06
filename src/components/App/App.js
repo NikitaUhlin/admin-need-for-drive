@@ -12,10 +12,13 @@ import OrderList from "../OrderList/OrderList";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import OrderPage from "../OrderPage/OrderPage";
 import CarsList from "../CarsList/CarsList";
-import Layout from "../Layout/Layout"
 import PointList from "../PointList/PointList";
 import RateList from "../RateList/RateList";
 import CityList from "../CityList/CityList";
+import CityChange from "../CityChange/CityChange";
+import PointChange from "../PointChange/PointChange";
+import RateChange from "../RateChange/RateChange";
+import CarChange from "../CarChange/CarChange";
 
 const App = () => {
   const dispatch = useDispatch()
@@ -46,7 +49,7 @@ const App = () => {
         />
         <Route
           path="/car/:id"
-          element={<PrivateRoute><Layout /></PrivateRoute>}
+          element={<PrivateRoute><CarChange /></PrivateRoute>}
         />
         <Route
           path="/points"
@@ -54,7 +57,7 @@ const App = () => {
         />
         <Route
           path="/point/:id"
-          element={<PrivateRoute><Layout /></PrivateRoute>}
+          element={<PrivateRoute><PointChange /></PrivateRoute>}
         />
         <Route
           path="/rates"
@@ -62,7 +65,7 @@ const App = () => {
         />
         <Route
           path="/rate/:id"
-          element={<PrivateRoute><Layout /></PrivateRoute>}
+          element={<PrivateRoute><RateChange /></PrivateRoute>}
         />
         <Route
           path="/cities"
@@ -70,7 +73,7 @@ const App = () => {
         />
         <Route
           path="/city/:id"
-          element={<PrivateRoute><Layout /></PrivateRoute>}
+          element={<PrivateRoute><CityChange /></PrivateRoute>}
         />
         <Route path="/auth" element={<Login />} />
       </Routes>

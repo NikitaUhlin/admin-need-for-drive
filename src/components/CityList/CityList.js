@@ -1,17 +1,19 @@
 import React from "react";
-
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as selectors from "../../store/selectors"
 import ButtonGroup from "../../common/ButtonGroup/ButtonGroup"
 import EntitiesList from "../EntitiesList/EntitiesList";
+import { deleteCity } from "../../store/actions";
 
 import RejectIcon from "../../assets/icons/RejectIcon.svg"
 import EditIcon from "../../assets/icons/EditIcon.svg"
 
 const CityList = () => {
     const navigate = useNavigate()
+
+    const dispatch = useDispatch()
 
     const cities = useSelector(selectors.cities)
     const loadingData = useSelector(selectors.loadingData)
@@ -46,7 +48,7 @@ const CityList = () => {
                             id: 2,
                             label: 'Удалить',
                             icon: RejectIcon,
-                            // onClick: () => onOrderCancel(item.id) 
+                            onClick: () => onCityDelete(record.id)
                         },
                     ]}
                 />
@@ -56,12 +58,17 @@ const CityList = () => {
 
     const onCityEdit = (id) => navigate(`/city/${id}`)
 
+    const onCityDelete = (id) => dispatch(deleteCity(id))
+
+    const onClickNewCity = () => navigate(`/city/create`)
+
     return (
         <EntitiesList
-            title="Пункты выдачи"
+            title="Города"
             columns={columns}
             data={cities}
             loadingData={loadingData}
+            onClickNewItem={onClickNewCity}
         />
     )
 }

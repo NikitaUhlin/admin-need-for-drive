@@ -100,7 +100,6 @@ const OrderPage = () => {
                         <div className={styles.containerForm}>
                             <Card
                                 className={styles.card}
-                            // style={{ marginLeft: 28 }}
                             >
                                 <div className={styles.contentForm}>
                                     <Form

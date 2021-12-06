@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as selectors from "../../store/selectors"
 import ButtonGroup from "../../common/ButtonGroup/ButtonGroup"
@@ -8,9 +8,12 @@ import EntitiesList from "../EntitiesList/EntitiesList";
 
 import RejectIcon from "../../assets/icons/RejectIcon.svg"
 import EditIcon from "../../assets/icons/EditIcon.svg"
+import { deleteRate } from "../../store/actions";
 
 const RateList = () => {
     const navigate = useNavigate()
+
+    const dispatch = useDispatch()
 
     const rate = useSelector(selectors.rate)
     const loadingData = useSelector(selectors.loadingData)
@@ -33,6 +36,7 @@ const RateList = () => {
             title: 'Описание',
             dataIndex: ['rateTypeId', 'unit'],
             responsive: ['md'],
+            width: '14%',
             key: 'unit',
 
 
@@ -41,6 +45,7 @@ const RateList = () => {
             title: 'Цена',
             dataIndex: 'price',
             responsive: ['md'],
+            width: '14%',
             key: 'price',
 
 
@@ -48,6 +53,7 @@ const RateList = () => {
         {
             title: 'Действия',
             key: 'action',
+            width: '14%',
             render: (text, record) => (
                 <ButtonGroup
                     options={[
@@ -61,7 +67,7 @@ const RateList = () => {
                             id: 2,
                             label: 'Удалить',
                             icon: RejectIcon,
-                            // onClick: () => onOrderCancel(item.id) 
+                            onClick: () => onRateDelete(record.id)
                         },
                     ]}
                 />
@@ -71,12 +77,17 @@ const RateList = () => {
 
     const onRateEdit = (id) => navigate(`/rate/${id}`)
 
+    const onRateDelete = (id) => dispatch(deleteRate(id))
+
+    const onClickNewRate = () => navigate(`/rate/create`)
+
     return (
         <EntitiesList
             title="Тарифы"
             columns={columns}
             data={rate}
             loadingData={loadingData}
+            onClickNewItem={onClickNewRate}
         />
     )
 }
