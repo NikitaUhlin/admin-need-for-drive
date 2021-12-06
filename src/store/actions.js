@@ -9,8 +9,10 @@ const getAuthToken = (body) => {
                 dispatch(getAuthTokenSuccess(res.data));
             })
             .catch(err => {
-                if (err.response.status === 401)
-                    dispatch(getAuthTokenFailure(err.response.data));
+                if (err.response.status === 401) {
+                    console.log(err.response.status)
+                    dispatch(getAuthTokenFailure(err.response.status));
+                }
             });
     };
 }
@@ -38,7 +40,7 @@ const getOrders = (page, filters) => {
                 dispatch(getOrdersSuccess(res.data));
             })
             .catch(err => {
-                dispatch(getOrdersFailure(err.response));
+                dispatch(getOrdersFailure(err.response.status));
             });
     };
 
@@ -71,7 +73,7 @@ const getData = () => {
                 dispatch(getRateSuccess(res[5].data.data))
             })
             .catch(err => {
-                dispatch(getDataFailure(err));
+                dispatch(getDataFailure(err.response.status));
             });
     };
 
@@ -123,7 +125,7 @@ const changeOrder = (id, body) => {
                 dispatch(changeOrderSuccess(res.data.data));
             })
             .catch(err => {
-                dispatch(changeOrderFailure(err.response));
+                dispatch(changeOrderFailure(err.response.status));
             });
     };
 }
@@ -155,7 +157,7 @@ const getOrder = (id) => {
                 dispatch(getOrderSuccess(res.data));
             })
             .catch(err => {
-                dispatch(getOrderFailure(err.response));
+                dispatch(getOrderFailure(err.response.status));
             });
     };
 
@@ -184,7 +186,7 @@ const getCity = (id) => {
                 dispatch(getCitySuccess(res.data));
             })
             .catch(err => {
-                dispatch(getCityFailure(err.response));
+                dispatch(getCityFailure(err.response.status));
             });
     };
 
@@ -213,7 +215,7 @@ const getPoint = (id) => {
                 dispatch(getPointSuccess(res.data));
             })
             .catch(err => {
-                dispatch(getPointFailure(err.response));
+                dispatch(getPointFailure(err.response.status));
             });
     };
 
@@ -242,7 +244,7 @@ const getCar = (id) => {
                 dispatch(getCarSuccess(res.data));
             })
             .catch(err => {
-                dispatch(getCarFailure(err.response));
+                dispatch(getCarFailure(err.response.status));
             });
     };
 
@@ -271,7 +273,7 @@ const getRateType = () => {
                 dispatch(getRateTypeSuccess(res.data))
             })
             .catch(err => {
-                dispatch(getRateTypeFailure(err.response));
+                dispatch(getRateTypeFailure(err.response.status));
             });
     };
 
@@ -301,7 +303,7 @@ const getRateItem = (id) => {
 
             })
             .catch(err => {
-                dispatch(getRateItemFailure(err.response));
+                dispatch(getRateItemFailure(err.response.status));
             });
     };
 
@@ -333,7 +335,7 @@ const changeCity = (id, body) => {
                 dispatch(changeCitySuccess(res.data));
             })
             .catch(err => {
-                dispatch(changeCityFailure(err.response));
+                dispatch(changeCityFailure(err.response.status));
             });
     };
 }
@@ -361,7 +363,7 @@ const changePoint = (id, body) => {
                 dispatch(changePointSuccess(res.data));
             })
             .catch(err => {
-                dispatch(changePointFailure(err.response));
+                dispatch(changePointFailure(err.response.status));
             });
     };
 }
@@ -389,7 +391,7 @@ const changeRate = (id, body) => {
                 dispatch(changeRateSuccess(res.data));
             })
             .catch(err => {
-                dispatch(changeRateFailure(err.response));
+                dispatch(changeRateFailure(err.response.status));
             });
     };
 }
@@ -417,7 +419,7 @@ const changeCar = (id, body) => {
                 dispatch(changeCarSuccess(res.data));
             })
             .catch(err => {
-                dispatch(changeCarFailure(err.response));
+                dispatch(changeCarFailure(err.response.status));
             });
     };
 }
@@ -445,7 +447,7 @@ const postCity = (body) => {
                 dispatch(postCitySuccess(res.data));
             })
             .catch(err => {
-                dispatch(postCityFailure(err.response));
+                dispatch(postCityFailure(err.response.status));
             });
     };
 }
@@ -473,7 +475,7 @@ const postPoint = (body) => {
                 dispatch(postPointSuccess(res.data));
             })
             .catch(err => {
-                dispatch(postPointFailure(err.response));
+                dispatch(postPointFailure(err.response.status));
             });
     };
 }
@@ -501,7 +503,7 @@ const postRate = (body) => {
                 dispatch(postRateSuccess(res.data));
             })
             .catch(err => {
-                dispatch(postRateFailure(err.response));
+                dispatch(postRateFailure(err.response.status));
             });
     };
 }
@@ -529,7 +531,7 @@ const postCar = (body) => {
                 dispatch(postCarSuccess(res.data));
             })
             .catch(err => {
-                dispatch(postCarFailure(err.response));
+                dispatch(postCarFailure(err.response.status));
             });
     };
 }
@@ -557,7 +559,7 @@ const deleteCity = (id) => {
                 dispatch(deleteCitySuccess(id));
             })
             .catch(err => {
-                dispatch(deleteCityFailure(err.response));
+                dispatch(deleteCityFailure(err.response.status));
             });
     };
 
@@ -586,7 +588,7 @@ const deleteRate = (id) => {
                 dispatch(deleteRateSuccess(id));
             })
             .catch(err => {
-                dispatch(deleteRateFailure(err.response));
+                dispatch(deleteRateFailure(err.response.status));
             });
     };
 
@@ -615,7 +617,7 @@ const deleteCar = (id) => {
                 dispatch(deleteCarSuccess(id));
             })
             .catch(err => {
-                dispatch(deleteCarFailure(err.response));
+                dispatch(deleteCarFailure(err.response.status));
             });
     };
 
@@ -644,7 +646,7 @@ const deletePoint = (id) => {
                 dispatch(deletePointSuccess(id));
             })
             .catch(err => {
-                dispatch(deletePointFailure(err.response));
+                dispatch(deletePointFailure(err.response.status));
             });
     };
 

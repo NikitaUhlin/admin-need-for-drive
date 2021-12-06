@@ -19,6 +19,7 @@ import CityChange from "../CityChange/CityChange";
 import PointChange from "../PointChange/PointChange";
 import RateChange from "../RateChange/RateChange";
 import CarChange from "../CarChange/CarChange";
+import ErrorPage from "../ErrorPage/ErrorPage";
 
 const App = () => {
   const dispatch = useDispatch()
@@ -74,6 +75,10 @@ const App = () => {
         <Route
           path="/city/:id"
           element={<PrivateRoute><CityChange /></PrivateRoute>}
+        />
+        <Route
+          path="/error"
+          element={<ErrorPage />}
         />
         <Route path="/auth" element={<Login />} />
       </Routes>

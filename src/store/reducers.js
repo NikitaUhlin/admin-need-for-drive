@@ -92,7 +92,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: action.payload,
-                auth: false
             };
         case "GET_RATE_SUCCESS":
             return {
@@ -199,7 +198,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loadingOrderItem: false,
                 error: action.payload,
-                auth: false
             };
         case "GET_CITY_SUCCESS":
             return {
@@ -218,7 +216,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loadingCityItem: false,
                 error: action.payload,
-                auth: false
             };
         case "GET_CAR_SUCCESS":
             return {
@@ -237,7 +234,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loadingCarItem: false,
                 error: action.payload,
-                auth: false
             };
         case "CHANGE_CITY_SUCCESS":
             return {
@@ -325,7 +321,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loadingPointItem: false,
                 error: action.payload,
-                auth: false
             };
 
         case "GET_RATE_TYPE_SUCCESS":
@@ -345,7 +340,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loadingRateType: false,
                 error: action.payload,
-                auth: false
             };
         case "GET_RATE_ITEM_SUCCESS":
             return {
@@ -364,7 +358,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loadingRateItem: false,
                 error: action.payload,
-                auth: false
             };
         case "CLEAR_RATE_ITEM":
             return {
@@ -390,7 +383,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loadingPostCity: false,
                 error: action.payload,
-                auth: false
             };
         case "POST_POINT_SUCCESS":
             let newPoint = [...state.points]
@@ -411,7 +403,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loadingPostPoint: false,
                 error: action.payload,
-                auth: false
             };
         case "POST_RATE_SUCCESS":
             let newRate = [...state.rate]
@@ -432,7 +423,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loadingPostRate: false,
                 error: action.payload,
-                auth: false
             };
         case "POST_CAR_SUCCESS":
             let newCar = [...state.cars]
@@ -453,7 +443,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loadingPostCar: false,
                 error: action.payload,
-                auth: false
             };
         case "DELETE_CITY_SUCCESS":
             const cityIndex = state.cities.findIndex((item) => action.payload === item.id)
