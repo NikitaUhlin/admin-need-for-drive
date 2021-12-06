@@ -7,89 +7,81 @@
     margin-bottom: 28px;
 }
 
-.order {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top: 1px solid #d9d9d9;
-    padding: 16px 21px;
+.contentInfo {
+    padding-top: 30px;
+    text-align: center;
+
 }
 
-.additional {
-    display: flex;
-    flex-direction: column;
+.contentForm {
+    padding: 20px;
 }
 
-.carInfo {
-    font-weight: normal;
-    font-size: 13px;
-    line-height: 15px;
-    letter-spacing: -0.408571px;
-    color: #889098;
-    padding: 0 16px;
-    min-width: 350px;
-
-    span {
-        color: #121212;
-    }
-}
-
-.price {
-    padding: 0 47px;
-    text-align: right;
+.containerForm {
     flex-grow: 1;
-    font-weight: normal;
-    font-size: 24px;
-    line-height: 28px;
-    letter-spacing: -0.754286px;
-    color: #121212;
+}
 
+.content {
+    display: flex;
 }
 
 .img {
-    width: 138px;
-    max-height: 63px;
-    object-fit: contain;
+    max-width: 450px;
+    display: inline-block;
+    margin: 0 auto 15px;
 }
 
-.pagination {
-    padding: 15px 0;
-    text-align: center;
-    border-top: 1px solid #d9d9d9;
-    margin-top: 15px;
+.name {
+    font-weight: normal;
+    font-size: 24.5px;
+    line-height: 28px;
+    letter-spacing: -0.6125px;
+    color: #3D5170;
 }
 
-.spinner {
-    height: 522px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.category {
+    font-weight: normal;
+    font-size: 12.5px;
+    line-height: 14px;
+    letter-spacing: -0.3125px;
+    color: #818EA3;
 }
 
-.filter {
-    padding: 16px 21px 0 21px;
+.description {
+    box-shadow: 0px -1px 0px rgba(0, 0, 0, 0.12);
+    font-weight: normal;
+    margin-top: 21px;
+    padding: 20px 30px;
+    font-size: 13.5px;
+    line-height: 19px;
+    letter-spacing: -0.408571px;
+    color: #5A6169;
 }
 
-@media (max-width: 1439px) {
-    .order {
-        flex-wrap: wrap;
-    }
-
-    .price {
-        padding-top: 20px;
-    }
-
+.card {
+    margin-left: 28px;
 }
 
 @media (max-width: 1023px) {
-    .additional {
-        padding-top: 15px;
-        padding-left: 16px;
+    .name {
+        font-size: 20px;
+    }
+
+    .content {
+        display: block;
+    }
+
+    .card {
+        margin: 0;
+    }
+
+    .img {
+        max-width: 250px;
     }
 }
 
 @media (max-width: 767px) {
     .title {
-        padding-left: 25px;
+        margin-left: 25px;
     }
 }

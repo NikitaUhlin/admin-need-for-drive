@@ -56,6 +56,10 @@ class ApiService {
             })
     }
 
+    getOrder(id) {
+        return this.get(`db/order/${id}`)
+    }
+
     getCars() {
         return this.get('db/car')
     }
@@ -64,8 +68,20 @@ class ApiService {
         return this.get('db/city')
     }
 
+    getPoints() {
+        return this.get('db/point')
+    }
+
     getStatuses() {
         return this.get('db/orderStatus')
+    }
+
+    getCategory() {
+        return this.get('db/category')
+    }
+
+    getRate() {
+        return this.get('db/rate')
     }
 
     changeOrder(id, body) {

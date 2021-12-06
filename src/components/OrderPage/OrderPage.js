@@ -1,181 +1,230 @@
-import React, { useEffect, useState } from "react";
-import { Card, message, Pagination, Spin, Empty } from "antd";
+import React, { useEffect, useMemo, useState } from "react";
+import { Card, Checkbox, Spin, Form, Select, Button, DatePicker, message } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { LoadingOutlined } from '@ant-design/icons'
+import moment from 'moment';
 
 import Layout from "../Layout/Layout"
-import { useDispatch, useSelector } from "react-redux";
-import { LoadingOutlined } from '@ant-design/icons'
-
+import { changeOrder, getOrder } from "../../store/actions";
 import * as selectors from "../../store/selectors"
-import CheckboxAdd from "../../common/CheckboxAdd/CheckboxAdd";
-import { formatDate } from "../../utils/formattedDate"
-import ButtonGroup from "../../common/ButtonGroup/ButtonGroup"
-
-import CheckGreen from "../../assets/icons/CheckGreen.svg"
-import RejectIcon from "../../assets/icons/RejectIcon.svg"
-import EditIcon from "../../assets/icons/EditIcon.svg"
 
 import styles from "./orderPage.module.less"
-import { changeOrder, getOrders } from "../../store/actions";
-import getImgPath from "../../utils/getImgPath";
-import Filter from "../../common/Filter/Filter";
-import { optionsFilterDate } from "../../constants/optionsFilterDate";
-import { useNavigate } from "react-router";
 
 const OrderPage = () => {
-    const orders = useSelector(selectors.orders)
-    const loading = useSelector(selectors.loading)
-    const loadingData = useSelector(selectors.loadingData)
-    const countOrder = useSelector(selectors.countOrder)
-    const cars = useSelector(selectors.cars)
-    const cities = useSelector(selectors.cities)
-    const statuses = useSelector(selectors.statuses)
-    const changeOrderSuccess = useSelector(selectors.changeOrderSuccess)
-
-    const [page, setPage] = useState(1)
-    const [filter, setFilter] = useState({})
+    const { id } = useParams()
 
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
 
+    const [form] = Form.useForm();
+
+    const order = useSelector(selectors.order)
+    const cities = useSelector(selectors.cities)
+    const points = useSelector(selectors.points)
+    const statuses = useSelector(selectors.statuses)
+    const loadingOrderItem = useSelector(selectors.loadingOrderItem)
+    const loadingData = useSelector(selectors.loadingData)
+    const changeOrderSuccess = useSelector(selectors.changeOrderSuccess)
+    const changeOrderFailure = useSelector(selectors.changeOrderFailure)
+
+    const [city, setCity] = useState('')
+
     useEffect(() => {
-        if (!orders.length)
-            dispatch(getOrders(1))
-    }, [])
+        if (order.id !== id)
+            dispatch(getOrder(id))
+        if (order.cityId)
+            setCity(order.cityId.id)
+    }, [order])
 
     useEffect(() => {
         if (changeOrderSuccess) {
-            message.success('Статус заказа изменен')
+            message.success('Заказ успешно изменен')
         }
     }, [changeOrderSuccess])
 
-    const onUpdateChange = (newPage) => {
-        setPage(newPage)
-        dispatch(getOrders(newPage, filter))
-    }
-
-    const onFilter = (data) => {
-        const filterDate = optionsFilterDate.find((item) => item.id === data["createdAt[$gt]"])
-        const filteredData = {
-            ...data,
-            "createdAt[$gt]": filterDate && new Date().getTime() - filterDate.time,
+    useEffect(() => {
+        if (changeOrderFailure) {
+            message.error('Возникла ошибка, попробуйте позже')
         }
-        setPage(1)
-        dispatch(getOrders(1, filteredData))
-        setFilter(filteredData)
+    }, [changeOrderFailure])
+
+    const filteredPoints = useMemo(() => points.filter(data => data.cityId && data.cityId.id === city), [points, city]);
+
+    const onChangeCity = (value) => {
+        setCity(value)
+
+        const firstPoint = points.find(data => data.cityId && data.cityId.id === value)
+
+        form.setFieldsValue({ pointId: firstPoint ? firstPoint.id : '' })
     }
 
-    const onClear = () => {
-        setFilter({})
-        setPage(1)
-        dispatch(getOrders(1, {}))
+    const onFinish = (values) =>
+        dispatch(changeOrder(id,
+            {
+                ...values,
+                dateFrom: values.date[0].valueOf(),
+                dateTo: values.date[1].valueOf()
+            }
+        ))
+
+    const onDelete = () => {
+        dispatch(changeOrder(id, { orderStatusId: "5e26a1f5099b810b946c5d8c" }))
+        navigate('/orders')
     }
-
-    const onOrderAccept = (id) => dispatch(changeOrder(id, { orderStatusId: "5e26a1f0099b810b946c5d8b" }))
-
-    const onOrderCancel = (id) => dispatch(changeOrder(id, { orderStatusId: "5e26a1f5099b810b946c5d8c" }))
-
-    const onOrderEdit = (id) => navigate(`/order/${id}`)
 
     return (
         <Layout>
-            <div className={styles.title}>Заказы</div>
-            <Card >
-                <div className={styles.filter}>
-                    {loadingData ?
-                        <Spin
-                            size="large"
-                            indicator={
-                                <LoadingOutlined style={{ fontSize: 24 }} spin />
-                            }
-                        />
-                        :
-                        <Filter
-                            onFilter={onFilter}
-                            onClear={onClear}
-                            filters={[
-                                {
-                                    options: optionsFilterDate,
-                                    placeholder: "Период",
-                                    label: "createdAt[$gt]"
-                                }, {
-                                    options: cars,
-                                    placeholder: "Авто",
-                                    label: "carId"
-                                }, {
-                                    options: cities,
-                                    placeholder: "Город",
-                                    label: "cityId"
-                                }, {
-                                    options: statuses,
-                                    placeholder: "Статус",
-                                    label: "orderStatusId"
-                                }
-                            ]}
-                        />
-                    }
-                </div>
-
-                {loading ?
-                    <div className={styles.spinner}>
-                        <Spin
-                            size="large"
-                            indicator={
-                                <LoadingOutlined style={{ fontSize: 34 }} spin />
-                            }
-                        />
-                    </div> :
-                    orders.length ? orders.map((item) => (
-                        <div key={item.id} className={styles.order}>
-                            <img className={styles.img} src={item.carId && getImgPath(item.carId.thumbnail.path)} alt='' />
-                            <div className={styles.carInfo}>
-                                <div>
-                                    <span>
-                                        {item.carId && item.carId.name}
-                                    </span> в <span>
-                                        {item.cityId && item.cityId.name}
-                                    </span>, {item.pointId && item.pointId.address}
-                                </div>
-                                <div>
-                                    {formatDate(new Date(item.dateFrom))} — {formatDate(new Date(item.dateTo))}
-                                </div>
-                                <div>
-                                    Цвет: <span>{item.color}</span>
-                                </div>
-                            </div>
-                            <div className={styles.additional}>
-                                <CheckboxAdd active={item.isFullTank}>Полный бак</CheckboxAdd>
-                                <CheckboxAdd active={item.isNeedChildChair}>Детское кресло</CheckboxAdd>
-                                <CheckboxAdd active={item.isRightWheel}>Правый руль</CheckboxAdd>
-                            </div>
-                            <div className={styles.price}>
-                                {item.price} ₽
-                            </div>
-                            <div className={styles.buttonGroup}>
-                                <ButtonGroup
-                                    options={[
-                                        { id: 1, label: 'Готово', icon: CheckGreen, onClick: () => onOrderAccept(item.id) },
-                                        { id: 2, label: 'Отмена', icon: RejectIcon, onClick: () => onOrderCancel(item.id) },
-                                        { id: 3, label: 'Изменить', icon: EditIcon, onClick: () => onOrderEdit(item.id) },
-                                    ]}
-                                />
-                            </div>
-                        </div>
-                    )
-                    ) : <Empty description="Заказы не найдены" />}
-
-                <div className={styles.pagination}>
-                    <Pagination
-                        current={page}
-                        size="small"
-                        pageSize={1}
-                        onChange={onUpdateChange}
-                        showSizeChanger={false}
-                        total={Math.ceil(countOrder / 6)}
+            <div className={styles.title}>Заказ</div>
+            <div className={styles.container}>
+                {loadingOrderItem || loadingData ?
+                    <Spin
+                        size="large"
+                        indicator={
+                            <LoadingOutlined style={{ fontSize: 24 }} spin />
+                        }
                     />
-                </div>
-            </Card>
-        </Layout>
+                    :
+                    <div className={styles.content}>
+
+                        <Card>
+                            <div className={styles.contentInfo}>
+                                <img className={styles.img} src={order.carId.thumbnail.path} alt="" />
+                                <div className={styles.name}>{order.carId.name}</div>
+                                <div className={styles.category}>{order.carId.categoryId.name}</div>
+                                <div className={styles.description}>{order.carId.description}</div>
+                            </div>
+                        </Card>
+
+                        <div className={styles.containerForm}>
+                            <Card
+                                className={styles.card}
+                            // style={{ marginLeft: 28 }}
+                            >
+                                <div className={styles.contentForm}>
+                                    <Form
+                                        layout="vertical"
+                                        form={form}
+                                        name='order'
+                                        onFinish={onFinish}
+                                    >
+                                        <Form.Item
+                                            label="Статус:"
+                                            name="orderStatusId"
+                                            initialValue={order.orderStatusId.id}
+                                        >
+
+                                            <Select>
+                                                {statuses.map((item) => (
+                                                    <Select.Option key={item.id} value={item.id}>{item.name}</Select.Option>
+                                                ))}
+                                            </Select>
+                                        </Form.Item>
+
+                                        <Form.Item
+                                            label="Цвет:"
+                                            name="color"
+                                            initialValue={order.color}
+                                        >
+
+                                            <Select>
+                                                {order.carId.colors.map((item, index) => (
+                                                    <Select.Option key={index} value={item}>{item}</Select.Option>
+                                                ))}
+                                            </Select>
+                                        </Form.Item>
+
+                                        <Form.Item
+                                            label="Город:"
+                                            name="cityId"
+                                            initialValue={order.cityId.id}
+                                        >
+
+                                            <Select onChange={onChangeCity}>
+                                                {cities.map((item) => (
+                                                    <Select.Option key={item.id} value={item.id}>{item.name}</Select.Option>
+                                                ))}
+                                            </Select>
+                                        </Form.Item>
+
+                                        <Form.Item
+                                            label="Адрес:"
+                                            name="pointId"
+                                            initialValue={order.pointId.id}
+                                        >
+                                            <Select>
+                                                {filteredPoints.map((item) => (
+                                                    <Select.Option key={item.id} value={item.id}>{item.address}</Select.Option>
+                                                ))}
+                                            </Select>
+                                        </Form.Item>
+
+                                        <Form.Item
+                                            label="Дата"
+                                            name="date"
+                                            initialValue={[moment(new Date(order.dateFrom)), moment(new Date(order.dateTo))]}
+                                        >
+                                            <DatePicker.RangePicker
+                                                showTime
+                                                format={"DD.MM.YYYY HH:mm"}
+                                            />
+                                        </Form.Item>
+
+                                        <Form.Item
+                                            name="isFullTank"
+                                            valuePropName="checked"
+                                            initialValue={order.isFullTank}
+                                            style={{ display: 'inline-block' }}
+                                        >
+                                            <Checkbox>
+                                                Полный бак
+                                            </Checkbox>
+                                        </Form.Item>
+
+                                        <Form.Item
+                                            name="isNeedChildChair"
+                                            valuePropName="checked"
+                                            initialValue={order.isNeedChildChair}
+                                            style={{ display: 'inline-block' }}
+                                        >
+                                            <Checkbox>
+                                                Детское кресло
+                                            </Checkbox>
+                                        </Form.Item>
+
+                                        <Form.Item
+                                            name="isRightWheel"
+                                            valuePropName="checked"
+                                            initialValue={order.isRightWheel}
+                                            style={{ display: 'inline-block' }}
+                                        >
+                                            <Checkbox>
+                                                Правый руль
+                                            </Checkbox>
+                                        </Form.Item>
+
+                                        <Form.Item >
+                                            <Button type="primary" htmlType="submit" style={{ marginRight: 15 }}>
+                                                Сохранить
+                                            </Button>
+
+                                            <Button
+                                                type="primary"
+                                                danger
+                                                onClick={onDelete}
+                                            >
+                                                Удалить
+                                            </Button>
+                                        </Form.Item>
+                                    </Form>
+                                </div>
+                            </Card>
+                        </div>
+                    </div>
+                }
+            </div>
+        </Layout >
     )
 }
 
