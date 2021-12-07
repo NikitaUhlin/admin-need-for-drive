@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,7 +8,8 @@ import EntitiesList from "../EntitiesList/EntitiesList";
 
 import RejectIcon from "../../assets/icons/RejectIcon.svg"
 import EditIcon from "../../assets/icons/EditIcon.svg"
-import { deletePoint } from "../../store/actions";
+import { deletePoint, messageTrigger } from "../../store/actions";
+import { message } from "antd";
 
 const PointList = () => {
     const navigate = useNavigate()
@@ -17,6 +18,13 @@ const PointList = () => {
 
     const points = useSelector(selectors.points)
     const loadingData = useSelector(selectors.loadingData)
+    const changePointSuccess = useSelector(selectors.changePointSuccess)
+
+    useEffect(() => {
+        if (changePointSuccess) {
+            message.success('Пункт успешно изменен').then(() => dispatch(messageTrigger()))
+        }
+    }, [changePointSuccess])
 
     const filtersPointCity = useMemo(() => {
         const result = []

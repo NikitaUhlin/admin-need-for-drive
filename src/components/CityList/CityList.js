@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as selectors from "../../store/selectors"
 import ButtonGroup from "../../common/ButtonGroup/ButtonGroup"
 import EntitiesList from "../EntitiesList/EntitiesList";
-import { deleteCity } from "../../store/actions";
+import { deleteCity, messageTrigger } from "../../store/actions";
 
 import RejectIcon from "../../assets/icons/RejectIcon.svg"
 import EditIcon from "../../assets/icons/EditIcon.svg"
+import { message } from "antd";
 
 const CityList = () => {
     const navigate = useNavigate()
@@ -17,6 +18,13 @@ const CityList = () => {
 
     const cities = useSelector(selectors.cities)
     const loadingData = useSelector(selectors.loadingData)
+    const changeCitySuccess = useSelector(selectors.changeCitySuccess)
+
+    useEffect(() => {
+        if (changeCitySuccess) {
+            message.success('Город успешно изменен').then(() => dispatch(messageTrigger()))
+        }
+    }, [changeCitySuccess])
 
     const columns = [
         {

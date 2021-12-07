@@ -52,14 +52,14 @@ const CarChange = () => {
         if (id !== "create")
             dispatch(changeCar(id, {
                 ...values,
-                colors,
+                colors: selectedColors,
                 categoryId: category.find((item) => item.id === values.categoryId),
                 thumbnail: newImg
             }))
         else
             dispatch(postCar({
                 ...values,
-                colors,
+                colors: selectedColors,
                 categoryId: category.find((item) => item.id === values.categoryId),
                 thumbnail: newImg,
                 tank: 100
@@ -78,7 +78,7 @@ const CarChange = () => {
     }
 
     const onClickNewColor = () => {
-        if (!colors.includes(newColor)) {
+        if (!colors.includes(newColor) && newColor.length) {
             setColors([...colors, newColor])
             onChangeColor(newColor)
             setNewColor('')
@@ -177,12 +177,22 @@ const CarChange = () => {
                                 </Form.Item>
                                 <Form.Item
                                     label="Минимальная цена:"
+                                    dependencies={["priceMax"]}
                                     name="priceMin"
                                     rules={[
                                         {
                                             required: true,
                                             message: 'Не может быть пустым',
                                         },
+                                        ({ getFieldValue }) => ({
+                                            validator(_, value) {
+                                                if (getFieldValue("priceMax") > value) {
+                                                    return Promise.resolve();
+                                                }
+
+                                                return Promise.reject(new Error('Минимальная цена не может быть больше максимальной!'));
+                                            },
+                                        }),
                                     ]}
                                 >
                                     <Input type="number" placeholder="Введите минимальную цену" />
@@ -190,11 +200,21 @@ const CarChange = () => {
                                 <Form.Item
                                     label="Максимальная цена:"
                                     name="priceMax"
+                                    dependencies={["priceMin"]}
                                     rules={[
                                         {
                                             required: true,
                                             message: 'Не может быть пустым',
                                         },
+                                        ({ getFieldValue }) => ({
+                                            validator(_, value) {
+                                                if (getFieldValue("priceMin") < value) {
+                                                    return Promise.resolve();
+                                                }
+
+                                                return Promise.reject(new Error('Максимальная цена не может быть меньше минимальной!'));
+                                            },
+                                        }),
                                     ]}
                                 >
                                     <Input type="number" placeholder="Введите максимальную цену" />

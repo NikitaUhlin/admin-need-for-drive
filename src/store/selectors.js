@@ -52,3 +52,12 @@ export const category = state => state.category
 
 export const rate = state => state.rate
 
+export const changeCitySuccess = state => state.changeCitySuccess
+
+export const changePointSuccess = state => state.changePointSuccess
+
+export const changeCarSuccess = state => state.changeCarSuccess
+
+export const changeRateSuccess = state => state.changeRateSuccess
+
+

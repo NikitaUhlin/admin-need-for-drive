@@ -60,7 +60,7 @@ const OrderPage = () => {
         form.setFieldsValue({ pointId: firstPoint ? firstPoint.id : '' })
     }
 
-    const onFinish = (values) =>
+    const onFinish = (values) => {
         dispatch(changeOrder(id,
             {
                 ...values,
@@ -68,6 +68,8 @@ const OrderPage = () => {
                 dateTo: values.date[1].valueOf()
             }
         ))
+        navigate('/orders')
+    }
 
     const onDelete = () => {
         dispatch(changeOrder(id, { orderStatusId: "5e26a1f5099b810b946c5d8c" }))

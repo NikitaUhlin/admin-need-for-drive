@@ -10,7 +10,6 @@ const getAuthToken = (body) => {
             })
             .catch(err => {
                 if (err.response.status === 401) {
-                    console.log(err.response.status)
                     dispatch(getAuthTokenFailure(err.response.status));
                 }
             });
@@ -332,7 +331,7 @@ const changeCity = (id, body) => {
 
         API.changeCity(id, body)
             .then(res => {
-                dispatch(changeCitySuccess(res.data));
+                dispatch(changeCitySuccess(res.data.data));
             })
             .catch(err => {
                 dispatch(changeCityFailure(err.response.status));
@@ -360,7 +359,7 @@ const changePoint = (id, body) => {
 
         API.changePoint(id, body)
             .then(res => {
-                dispatch(changePointSuccess(res.data));
+                dispatch(changePointSuccess(res.data.data));
             })
             .catch(err => {
                 dispatch(changePointFailure(err.response.status));
@@ -388,7 +387,7 @@ const changeRate = (id, body) => {
 
         API.changeRate(id, body)
             .then(res => {
-                dispatch(changeRateSuccess(res.data));
+                dispatch(changeRateSuccess(res.data.data));
             })
             .catch(err => {
                 dispatch(changeRateFailure(err.response.status));
@@ -416,7 +415,7 @@ const changeCar = (id, body) => {
 
         API.changeCar(id, body)
             .then(res => {
-                dispatch(changeCarSuccess(res.data));
+                dispatch(changeCarSuccess(res.data.data));
             })
             .catch(err => {
                 dispatch(changeCarFailure(err.response.status));

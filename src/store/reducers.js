@@ -25,11 +25,13 @@ export const initialState = {
     loadingCity: false,
     changeCitySuccess: false,
     changeCityFailure: false,
-    loadingPoint: false,
     changePointSuccess: false,
     changePointFailure: false,
     changeCarSuccess: false,
     changeCarFailure: false,
+    changeRateSuccess: false,
+    changeRateFailure: false,
+    loadingPoint: false,
     loadingCar: false,
     order: {},
     city: {},
@@ -180,6 +182,10 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 changeOrderSuccess: false,
+                changeCitySuccess: false,
+                changePointSuccess: false,
+                changeCarSuccess: false,
+                changeRateSuccess: false,
             };
         case "GET_ORDER_SUCCESS":
             return {
@@ -236,10 +242,15 @@ const reducer = (state = initialState, action) => {
                 error: action.payload,
             };
         case "CHANGE_CITY_SUCCESS":
+            const indexCity = state.cities.findIndex((item) => action.payload.id === item.id)
+            const cityNew = [...state.cities]
+            cityNew.splice(indexCity, 1, action.payload)
             return {
                 ...state,
                 loadingCity: false,
                 error: null,
+                cities: cityNew,
+                city: action.payload,
                 changeCitySuccess: true,
                 changeCityFailure: false
             };
@@ -258,10 +269,43 @@ const reducer = (state = initialState, action) => {
                 changeCitySuccess: false,
                 changeCityFailure: true
             };
+        case "CHANGE_RATE_SUCCESS":
+            const indexRate = state.rate.findIndex((item) => action.payload.id === item.id)
+            const rateNew = [...state.rate]
+            rateNew.splice(indexRate, 1, action.payload)
+            return {
+                ...state,
+                loadingCity: false,
+                error: null,
+                rate: rateNew,
+                rateItem: action.payload,
+                changeRateSuccess: true,
+                changeRateFailure: false
+            };
+        case "CHANGE_RATE_STARTED":
+            return {
+                ...state,
+                loadingCity: true,
+                changeRateSuccess: false,
+                changeRateFailure: false
+            };
+        case "CHANGE_RATE_FAILURE":
+            return {
+                ...state,
+                loadingCity: false,
+                error: action.payload,
+                changeRateSuccess: false,
+                changeRateFailure: true
+            };
         case "CHANGE_CAR_SUCCESS":
+            const indexCar = state.cars.findIndex((item) => action.payload.id === item.id)
+            const carNew = [...state.cars]
+            carNew.splice(indexCar, 1, action.payload)
             return {
                 ...state,
                 loadingCar: false,
+                cars: carNew,
+                car: action.payload,
                 error: null,
                 changeCarSuccess: true,
                 changeCarFailure: false
@@ -282,9 +326,14 @@ const reducer = (state = initialState, action) => {
                 changeCarFailure: true
             };
         case "CHANGE_POINT_SUCCESS":
+            const indexPoint = state.points.findIndex((item) => action.payload.id === item.id)
+            const pointNew = [...state.points]
+            pointNew.splice(indexPoint, 1, action.payload)
             return {
                 ...state,
                 loadingPoint: false,
+                points: pointNew,
+                point: action.payload,
                 error: null,
                 changePointSuccess: true,
                 changePointFailure: false
@@ -369,6 +418,7 @@ const reducer = (state = initialState, action) => {
             newCities.push(action.payload.data)
             return {
                 ...state,
+                changeCitySuccess: true,
                 cities: newCities,
                 loadingPostCity: false,
                 error: null,
@@ -376,11 +426,13 @@ const reducer = (state = initialState, action) => {
         case "POST_CITY_STARTED":
             return {
                 ...state,
+                changeCitySuccess: false,
                 loadingPostCity: true
             };
         case "POST_CITY_FAILURE":
             return {
                 ...state,
+                changeCitySuccess: false,
                 loadingPostCity: false,
                 error: action.payload,
             };
@@ -389,6 +441,7 @@ const reducer = (state = initialState, action) => {
             newPoint.push(action.payload.data)
             return {
                 ...state,
+                changePointSuccess: true,
                 points: newPoint,
                 loadingPostPoint: false,
                 error: null,
@@ -396,12 +449,14 @@ const reducer = (state = initialState, action) => {
         case "POST_POINT_STARTED":
             return {
                 ...state,
+                changePointSuccess: false,
                 loadingPostPoint: true
             };
         case "POST_POINT_FAILURE":
             return {
                 ...state,
                 loadingPostPoint: false,
+                changePointSuccess: false,
                 error: action.payload,
             };
         case "POST_RATE_SUCCESS":
@@ -409,6 +464,7 @@ const reducer = (state = initialState, action) => {
             newRate.push(action.payload.data)
             return {
                 ...state,
+                changeRateSuccess: true,
                 rate: newRate,
                 loadingPostRate: false,
                 error: null,
@@ -416,12 +472,14 @@ const reducer = (state = initialState, action) => {
         case "POST_RATE_STARTED":
             return {
                 ...state,
+                changeRateSuccess: false,
                 loadingPostRate: true
             };
         case "POST_RATE_FAILURE":
             return {
                 ...state,
                 loadingPostRate: false,
+                changeRateSuccess: false,
                 error: action.payload,
             };
         case "POST_CAR_SUCCESS":
@@ -429,6 +487,7 @@ const reducer = (state = initialState, action) => {
             newCar.push(action.payload.data)
             return {
                 ...state,
+                changeCarSuccess: true,
                 cars: newCar,
                 loadingPostCar: false,
                 error: null,
@@ -436,11 +495,13 @@ const reducer = (state = initialState, action) => {
         case "POST_CAR_STARTED":
             return {
                 ...state,
+                changeCarSuccess: false,
                 loadingPostCar: true
             };
         case "POST_CAR_FAILURE":
             return {
                 ...state,
+                changeCarSuccess: false,
                 loadingPostCar: false,
                 error: action.payload,
             };

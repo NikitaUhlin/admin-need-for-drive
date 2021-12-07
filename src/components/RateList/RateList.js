@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,7 +8,8 @@ import EntitiesList from "../EntitiesList/EntitiesList";
 
 import RejectIcon from "../../assets/icons/RejectIcon.svg"
 import EditIcon from "../../assets/icons/EditIcon.svg"
-import { deleteRate } from "../../store/actions";
+import { deleteRate, messageTrigger } from "../../store/actions";
+import { message } from "antd";
 
 const RateList = () => {
     const navigate = useNavigate()
@@ -17,6 +18,13 @@ const RateList = () => {
 
     const rate = useSelector(selectors.rate)
     const loadingData = useSelector(selectors.loadingData)
+    const changeRateSuccess = useSelector(selectors.changeRateSuccess)
+
+    useEffect(() => {
+        if (changeRateSuccess) {
+            message.success('Тариф успешно изменен').then(() => dispatch(messageTrigger()))
+        }
+    }, [changeRateSuccess])
 
     const columns = [
         {
