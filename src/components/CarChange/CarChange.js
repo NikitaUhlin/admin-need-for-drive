@@ -186,7 +186,7 @@ const CarChange = () => {
                                         },
                                         ({ getFieldValue }) => ({
                                             validator(_, value) {
-                                                if (getFieldValue("priceMax") > value) {
+                                                if (!value || !getFieldValue("priceMax") || +getFieldValue("priceMax") > value) {
                                                     return Promise.resolve();
                                                 }
 
@@ -208,7 +208,7 @@ const CarChange = () => {
                                         },
                                         ({ getFieldValue }) => ({
                                             validator(_, value) {
-                                                if (getFieldValue("priceMin") < value) {
+                                                if (!value || !getFieldValue("priceMin") || +getFieldValue("priceMin") < value) {
                                                     return Promise.resolve();
                                                 }
 
