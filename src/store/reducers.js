@@ -16,13 +16,38 @@ export const initialState = {
     statuses: [],
     category: [],
     rate: [],
+    rateType: [],
     points: [],
     filterOrders: {},
     loadingOrder: false,
     changeOrderSuccess: false,
     changeOrderFailure: false,
+    loadingCity: false,
+    changeCitySuccess: false,
+    changeCityFailure: false,
+    changePointSuccess: false,
+    changePointFailure: false,
+    changeCarSuccess: false,
+    changeCarFailure: false,
+    changeRateSuccess: false,
+    changeRateFailure: false,
+    loadingPoint: false,
+    loadingCar: false,
     order: {},
+    city: {},
+    point: {},
+    rateItem: {},
+    car: {},
     loadingOrderItem: true,
+    loadingCityItem: true,
+    loadingPointItem: true,
+    loadingRateItem: true,
+    loadingCarItem: true,
+    loadingRateType: false,
+    loadingPostCity: false,
+    loadingPostPoint: false,
+    loadingPostRate: false,
+    loadingPostCar: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -69,7 +94,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: action.payload,
-                auth: false
             };
         case "GET_RATE_SUCCESS":
             return {
@@ -145,11 +169,7 @@ const reducer = (state = initialState, action) => {
                 changeOrderSuccess: false,
                 changeOrderFailure: false
             };
-        case "MESSAGE_TRIGGER":
-            return {
-                ...state,
-                changeOrderSuccess: false,
-            };
+
         case "CHANGE_ORDER_FAILURE":
             return {
                 ...state,
@@ -157,6 +177,15 @@ const reducer = (state = initialState, action) => {
                 error: action.payload,
                 changeOrderSuccess: false,
                 changeOrderFailure: true
+            };
+        case "MESSAGE_TRIGGER":
+            return {
+                ...state,
+                changeOrderSuccess: false,
+                changeCitySuccess: false,
+                changePointSuccess: false,
+                changeCarSuccess: false,
+                changeRateSuccess: false,
             };
         case "GET_ORDER_SUCCESS":
             return {
@@ -175,7 +204,383 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loadingOrderItem: false,
                 error: action.payload,
-                auth: false
+            };
+        case "GET_CITY_SUCCESS":
+            return {
+                ...state,
+                loadingCityItem: false,
+                error: null,
+                city: action.payload.data,
+            };
+        case "GET_CITY_STARTED":
+            return {
+                ...state,
+                loadingCityItem: true
+            };
+        case "GET_CITY_FAILURE":
+            return {
+                ...state,
+                loadingCityItem: false,
+                error: action.payload,
+            };
+        case "GET_CAR_SUCCESS":
+            return {
+                ...state,
+                loadingCarItem: false,
+                error: null,
+                car: action.payload.data,
+            };
+        case "GET_CAR_STARTED":
+            return {
+                ...state,
+                loadingCarItem: true
+            };
+        case "GET_CAR_FAILURE":
+            return {
+                ...state,
+                loadingCarItem: false,
+                error: action.payload,
+            };
+        case "CHANGE_CITY_SUCCESS":
+            const indexCity = state.cities.findIndex((item) => action.payload.id === item.id)
+            const cityNew = [...state.cities]
+            cityNew.splice(indexCity, 1, action.payload)
+            return {
+                ...state,
+                loadingCity: false,
+                error: null,
+                cities: cityNew,
+                city: action.payload,
+                changeCitySuccess: true,
+                changeCityFailure: false
+            };
+        case "CHANGE_CITY_STARTED":
+            return {
+                ...state,
+                loadingCity: true,
+                changeCitySuccess: false,
+                changeCityFailure: false
+            };
+        case "CHANGE_CITY_FAILURE":
+            return {
+                ...state,
+                loadingCity: false,
+                error: action.payload,
+                changeCitySuccess: false,
+                changeCityFailure: true
+            };
+        case "CHANGE_RATE_SUCCESS":
+            const indexRate = state.rate.findIndex((item) => action.payload.id === item.id)
+            const rateNew = [...state.rate]
+            rateNew.splice(indexRate, 1, action.payload)
+            return {
+                ...state,
+                loadingCity: false,
+                error: null,
+                rate: rateNew,
+                rateItem: action.payload,
+                changeRateSuccess: true,
+                changeRateFailure: false
+            };
+        case "CHANGE_RATE_STARTED":
+            return {
+                ...state,
+                loadingCity: true,
+                changeRateSuccess: false,
+                changeRateFailure: false
+            };
+        case "CHANGE_RATE_FAILURE":
+            return {
+                ...state,
+                loadingCity: false,
+                error: action.payload,
+                changeRateSuccess: false,
+                changeRateFailure: true
+            };
+        case "CHANGE_CAR_SUCCESS":
+            const indexCar = state.cars.findIndex((item) => action.payload.id === item.id)
+            const carNew = [...state.cars]
+            carNew.splice(indexCar, 1, action.payload)
+            return {
+                ...state,
+                loadingCar: false,
+                cars: carNew,
+                car: action.payload,
+                error: null,
+                changeCarSuccess: true,
+                changeCarFailure: false
+            };
+        case "CHANGE_CAR_STARTED":
+            return {
+                ...state,
+                loadingCar: true,
+                changeCarSuccess: false,
+                changeCarFailure: false
+            };
+        case "CHANGE_CAR_FAILURE":
+            return {
+                ...state,
+                loadingCar: false,
+                error: action.payload,
+                changeCarSuccess: false,
+                changeCarFailure: true
+            };
+        case "CHANGE_POINT_SUCCESS":
+            const indexPoint = state.points.findIndex((item) => action.payload.id === item.id)
+            const pointNew = [...state.points]
+            pointNew.splice(indexPoint, 1, action.payload)
+            return {
+                ...state,
+                loadingPoint: false,
+                points: pointNew,
+                point: action.payload,
+                error: null,
+                changePointSuccess: true,
+                changePointFailure: false
+            };
+        case "CHANGE_POINT_STARTED":
+            return {
+                ...state,
+                loadingPoint: true,
+                changePointSuccess: false,
+                changePointFailure: false
+            };
+        case "CHANGE_POINT_FAILURE":
+            return {
+                ...state,
+                loadingPoint: false,
+                error: action.payload,
+                changePointSuccess: false,
+                changePointFailure: true
+            };
+        case "GET_POINT_SUCCESS":
+            return {
+                ...state,
+                loadingPointItem: false,
+                error: null,
+                point: action.payload.data,
+            };
+        case "GET_POINT_STARTED":
+            return {
+                ...state,
+                loadingPointItem: true
+            };
+        case "GET_POINT_FAILURE":
+            return {
+                ...state,
+                loadingPointItem: false,
+                error: action.payload,
+            };
+
+        case "GET_RATE_TYPE_SUCCESS":
+            return {
+                ...state,
+                loadingRateType: false,
+                error: null,
+                rateType: action.payload.data,
+            };
+        case "GET_RATE_TYPE_STARTED":
+            return {
+                ...state,
+                loadingRateType: true
+            };
+        case "GET_RATE_TYPE_FAILURE":
+            return {
+                ...state,
+                loadingRateType: false,
+                error: action.payload,
+            };
+        case "GET_RATE_ITEM_SUCCESS":
+            return {
+                ...state,
+                loadingRateItem: false,
+                error: null,
+                rateItem: action.payload.data,
+            };
+        case "GET_RATE_ITEM_STARTED":
+            return {
+                ...state,
+                loadingRateItem: true
+            };
+        case "GET_RATE_ITEM_FAILURE":
+            return {
+                ...state,
+                loadingRateItem: false,
+                error: action.payload,
+            };
+        case "CLEAR_RATE_ITEM":
+            return {
+                ...state,
+                rateItem: {},
+            };
+        case "POST_CITY_SUCCESS":
+            let newCities = [...state.cities]
+            newCities.push(action.payload.data)
+            return {
+                ...state,
+                changeCitySuccess: true,
+                cities: newCities,
+                loadingPostCity: false,
+                error: null,
+            };
+        case "POST_CITY_STARTED":
+            return {
+                ...state,
+                changeCitySuccess: false,
+                loadingPostCity: true
+            };
+        case "POST_CITY_FAILURE":
+            return {
+                ...state,
+                changeCitySuccess: false,
+                loadingPostCity: false,
+                error: action.payload,
+            };
+        case "POST_POINT_SUCCESS":
+            let newPoint = [...state.points]
+            newPoint.push(action.payload.data)
+            return {
+                ...state,
+                changePointSuccess: true,
+                points: newPoint,
+                loadingPostPoint: false,
+                error: null,
+            };
+        case "POST_POINT_STARTED":
+            return {
+                ...state,
+                changePointSuccess: false,
+                loadingPostPoint: true
+            };
+        case "POST_POINT_FAILURE":
+            return {
+                ...state,
+                loadingPostPoint: false,
+                changePointSuccess: false,
+                error: action.payload,
+            };
+        case "POST_RATE_SUCCESS":
+            let newRate = [...state.rate]
+            newRate.push(action.payload.data)
+            return {
+                ...state,
+                changeRateSuccess: true,
+                rate: newRate,
+                loadingPostRate: false,
+                error: null,
+            };
+        case "POST_RATE_STARTED":
+            return {
+                ...state,
+                changeRateSuccess: false,
+                loadingPostRate: true
+            };
+        case "POST_RATE_FAILURE":
+            return {
+                ...state,
+                loadingPostRate: false,
+                changeRateSuccess: false,
+                error: action.payload,
+            };
+        case "POST_CAR_SUCCESS":
+            let newCar = [...state.cars]
+            newCar.push(action.payload.data)
+            return {
+                ...state,
+                changeCarSuccess: true,
+                cars: newCar,
+                loadingPostCar: false,
+                error: null,
+            };
+        case "POST_CAR_STARTED":
+            return {
+                ...state,
+                changeCarSuccess: false,
+                loadingPostCar: true
+            };
+        case "POST_CAR_FAILURE":
+            return {
+                ...state,
+                changeCarSuccess: false,
+                loadingPostCar: false,
+                error: action.payload,
+            };
+        case "DELETE_CITY_SUCCESS":
+            const cityIndex = state.cities.findIndex((item) => action.payload === item.id)
+            let cityList = [...state.cities]
+            cityList.splice(cityIndex, 1)
+            return {
+                ...state,
+                error: null,
+                cities: cityList,
+            };
+        case "DELETE_CITY_STARTED":
+            return {
+                ...state,
+            };
+
+        case "DELETE_CITY_FAILURE":
+            return {
+                ...state,
+                error: action.payload,
+            };
+        case "DELETE_RATE_SUCCESS":
+            const rateIndex = state.rate.findIndex((item) => action.payload === item.id)
+            let rateList = [...state.rate]
+            rateList.splice(rateIndex, 1)
+            return {
+                ...state,
+                error: null,
+                rate: rateList,
+            };
+        case "DELETE_RATE_STARTED":
+            return {
+                ...state,
+            };
+
+        case "DELETE_RATE_FAILURE":
+            return {
+                ...state,
+                error: action.payload,
+            };
+        case "DELETE_CAR_SUCCESS":
+            const carIndex = state.cars.findIndex((item) => action.payload === item.id)
+            let carList = [...state.cars]
+            carList.splice(carIndex, 1)
+            return {
+                ...state,
+                error: null,
+                cars: carList,
+            };
+        case "DELETE_CAR_STARTED":
+            return {
+                ...state,
+            };
+
+        case "DELETE_CAR_FAILURE":
+            return {
+                ...state,
+                error: action.payload,
+            };
+
+        case "DELETE_POINT_SUCCESS":
+            const pointIndex = state.points.findIndex((item) => action.payload === item.id)
+            let pointList = [...state.points]
+            pointList.splice(pointIndex, 1)
+            return {
+                ...state,
+                error: null,
+                points: pointList,
+            };
+        case "DELETE_POINT_STARTED":
+            return {
+                ...state,
+            };
+
+        case "DELETE_POINT_FAILURE":
+            return {
+                ...state,
+                error: action.payload,
             };
 
         default:

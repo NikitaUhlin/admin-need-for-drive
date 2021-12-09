@@ -1,6 +1,6 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as selectors from "../../store/selectors"
 import ButtonGroup from "../../common/ButtonGroup/ButtonGroup"
@@ -8,17 +8,29 @@ import EntitiesList from "../EntitiesList/EntitiesList";
 
 import RejectIcon from "../../assets/icons/RejectIcon.svg"
 import EditIcon from "../../assets/icons/EditIcon.svg"
+import { deletePoint, messageTrigger } from "../../store/actions";
+import { message } from "antd";
 
 const PointList = () => {
     const navigate = useNavigate()
 
+    const dispatch = useDispatch()
+
     const points = useSelector(selectors.points)
     const loadingData = useSelector(selectors.loadingData)
+    const changePointSuccess = useSelector(selectors.changePointSuccess)
+
+    useEffect(() => {
+        if (changePointSuccess) {
+            message.success('Пункт успешно изменен').then(() => dispatch(messageTrigger()))
+        }
+    }, [changePointSuccess])
 
     const filtersPointCity = useMemo(() => {
         const result = []
         for (let i = 0; i < points.length; i++) {
-            if (!result.find((item) => item.text === points[i].cityId.name))
+            if (!points[i].cityId) continue
+            if (!result.find((item) => points[i].cityId.name === item.text))
                 result.push({ text: points[i].cityId.name, value: points[i].cityId.name })
         }
         return result
@@ -44,6 +56,7 @@ const PointList = () => {
             key: 'city',
             filters: filtersPointCity,
             responsive: ['md'],
+            width: '14%',
             onFilter: (value, record) => record.cityId.name.indexOf(value) > -1,
 
         },
@@ -51,11 +64,13 @@ const PointList = () => {
             title: 'Адрес',
             dataIndex: 'address',
             responsive: ['lg'],
+            width: '30%',
             key: 'address',
         },
         {
             title: 'Действия',
             key: 'action',
+            width: '14%',
             render: (text, record) => (
                 <ButtonGroup
                     options={[
@@ -69,7 +84,7 @@ const PointList = () => {
                             id: 2,
                             label: 'Удалить',
                             icon: RejectIcon,
-                            // onClick: () => onOrderCancel(item.id) 
+                            onClick: () => onPointDelete(record.id)
                         },
                     ]}
                 />
@@ -79,12 +94,17 @@ const PointList = () => {
 
     const onPointEdit = (id) => navigate(`/point/${id}`)
 
+    const onPointDelete = (id) => dispatch(deletePoint(id))
+
+    const onClickNewPoint = () => navigate(`/point/create`)
+
     return (
         <EntitiesList
             title="Пункты выдачи"
             columns={columns}
             data={points}
             loadingData={loadingData}
+            onClickNewItem={onClickNewPoint}
         />
     )
 }

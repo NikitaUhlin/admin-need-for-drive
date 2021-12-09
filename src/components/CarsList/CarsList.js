@@ -1,11 +1,12 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Tag } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { message, Tag } from "antd";
 
 import * as selectors from "../../store/selectors"
 import ButtonGroup from "../../common/ButtonGroup/ButtonGroup"
 import EntitiesList from "../EntitiesList/EntitiesList";
+import { deleteCar, messageTrigger } from "../../store/actions";
 
 import RejectIcon from "../../assets/icons/RejectIcon.svg"
 import EditIcon from "../../assets/icons/EditIcon.svg"
@@ -13,9 +14,18 @@ import EditIcon from "../../assets/icons/EditIcon.svg"
 const CarsList = () => {
     const navigate = useNavigate()
 
+    const dispatch = useDispatch()
+
     const cars = useSelector(selectors.cars)
     const category = useSelector(selectors.category)
     const loadingData = useSelector(selectors.loadingData)
+    const changeCarSuccess = useSelector(selectors.changeCarSuccess)
+
+    useEffect(() => {
+        if (changeCarSuccess) {
+            message.success('Автомобиль успешно изменен').then(() => dispatch(messageTrigger()))
+        }
+    }, [changeCarSuccess])
 
     const filtersCarCategory = useMemo(() => category.map(item => ({ text: item.name, value: item.name })), [category]);
 
@@ -116,7 +126,7 @@ const CarsList = () => {
                             id: 2,
                             label: 'Удалить',
                             icon: RejectIcon,
-                            // onClick: () => onOrderCancel(item.id) 
+                            onClick: () => onCarDelete(record.id)
                         },
                     ]}
                 />
@@ -126,12 +136,17 @@ const CarsList = () => {
 
     const onCarEdit = (id) => navigate(`/car/${id}`)
 
+    const onCarDelete = (id) => dispatch(deleteCar(id))
+
+    const onClickNewCar = () => navigate('/car/create')
+
     return (
         <EntitiesList
             title="Автомобили"
             columns={columns}
             data={cars}
             loadingData={loadingData}
+            onClickNewItem={onClickNewCar}
         />
     )
 }
