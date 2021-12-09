@@ -6,11 +6,20 @@ import * as selectors from "../../store/selectors"
 
 const PrivateRoute = ({ children }) => {
     const auth = useSelector(selectors.auth)
+    const error = useSelector(selectors.error)
 
-    return auth ?
-        children :
-        <Navigate
+    let content = children
+
+    if (!auth || error === 401) {
+        content = <Navigate
             to="/auth"
         />
+    } else if (error) {
+        content = <Navigate
+            to="/error"
+        />
+    }
+
+    return content
 }
 export default PrivateRoute

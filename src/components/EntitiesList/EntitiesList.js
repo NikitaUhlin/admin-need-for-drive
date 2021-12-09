@@ -7,7 +7,7 @@ import Layout from "../Layout/Layout"
 
 import styles from "./entitiesList.module.less"
 
-const EntitiesList = ({ title, columns, data, loadingData }) => (
+const EntitiesList = ({ title, columns, data, loadingData, onClickNewItem }) => (
     <Layout>
         <div className={styles.title}>{title}</div>
         {loadingData ?
@@ -22,7 +22,7 @@ const EntitiesList = ({ title, columns, data, loadingData }) => (
             <Card>
                 <div className={styles.container}>
                     <div className={styles.createButton}>
-                        <Button size="large"><PlusOutlined style={{ fontSize: 13 }} />Создать</Button>
+                        <Button size="large" onClick={onClickNewItem}><PlusOutlined style={{ fontSize: 13 }} />Создать</Button>
                     </div>
                     <Table
                         pagination={{
@@ -35,6 +35,7 @@ const EntitiesList = ({ title, columns, data, loadingData }) => (
                         columns={columns}
                         dataSource={data}
                         size="small"
+                        rowKey="id"
                     />
                 </div>
             </Card>}
